@@ -5,6 +5,16 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/micro_user?serverTimezone=GMT
+    username: root
+    password: root
 server:
   port: 60002
 jwt:

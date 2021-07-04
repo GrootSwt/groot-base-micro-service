@@ -1,6 +1,6 @@
 package com.micro.gateway.filter;
 
-import com.micro.common.model.user.User;
+import com.micro.common.dto.user.UserDTO;
 import com.micro.common.util.JwtTokenUtil;
 import io.jsonwebtoken.JwtException;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -48,16 +48,16 @@ public class AuthorizationFilter implements GlobalFilter, Ordered {
 
         String loginName = loginNameList.get(0).getValue();
         String token = tokenList.get(0).getValue();
-        User userInfo;
+        UserDTO userDTOInfo;
         try {
-            userInfo = JwtTokenUtil.getUserInfo(token);
+            userDTOInfo = JwtTokenUtil.getUserInfo(token);
         }catch (JwtException e) {
             e.printStackTrace();
             response.setStatusCode(HttpStatus.FORBIDDEN);
             return response.setComplete();
         }
         // 判断token是否正确
-        if (userInfo.getLoginName().equals(loginName)) {
+        if (userDTOInfo.getLoginName().equals(loginName)) {
             return chain.filter(exchange);
         } else {
             response.setStatusCode(HttpStatus.FORBIDDEN);
