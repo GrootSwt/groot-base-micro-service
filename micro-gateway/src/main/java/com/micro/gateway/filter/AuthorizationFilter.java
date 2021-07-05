@@ -1,5 +1,6 @@
 package com.micro.gateway.filter;
 
+import com.alibaba.fastjson.JSON;
 import com.micro.common.dto.user.UserDTO;
 import com.micro.common.util.JwtTokenUtil;
 import io.jsonwebtoken.JwtException;
@@ -15,6 +16,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 /**
@@ -39,14 +42,20 @@ public class AuthorizationFilter implements GlobalFilter, Ordered {
         }
         // 获取token和登录名
         List<HttpCookie> tokenList = cookies.get("token");
-        List<HttpCookie> loginNameList = cookies.get("loginName");
+        List<HttpCookie> userInfoList = cookies.get("userInfo");
 
-        if (tokenList == null || loginNameList == null) {
+        if (tokenList == null || userInfoList == null) {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return response.setComplete();
         }
 
-        String loginName = loginNameList.get(0).getValue();
+        String userInfoStr = userInfoList.get(0).getValue();
+        try {
+            userInfoStr = URLDecoder.decode(userInfoStr, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        UserDTO userInfo = JSON.parseObject(userInfoStr, UserDTO.class);
         String token = tokenList.get(0).getValue();
         UserDTO userDTOInfo;
         try {
@@ -57,7 +66,7 @@ public class AuthorizationFilter implements GlobalFilter, Ordered {
             return response.setComplete();
         }
         // 判断token是否正确
-        if (userDTOInfo.getLoginName().equals(loginName)) {
+        if (userDTOInfo.getLoginName().equals(userInfo.getLoginName())) {
             return chain.filter(exchange);
         } else {
             response.setStatusCode(HttpStatus.FORBIDDEN);
