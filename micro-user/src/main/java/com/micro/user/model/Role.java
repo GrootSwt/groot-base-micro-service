@@ -11,19 +11,11 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class User {
+public class Role {
     @Id
     private Long id;
 
-    private String username;
+    private String name;
 
-    private String password;
-
-    private String loginName;
-
-    private String phoneNumber;
-
-    private String email;
-
-    private Long roleId;
+    private Long roleRelationMenuId;
 }

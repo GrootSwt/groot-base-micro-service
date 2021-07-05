@@ -2,12 +2,14 @@ package com.micro.common.dto.user;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class UserDTO implements Serializable {
 
     private Long id;
 
@@ -20,4 +22,6 @@ public class UserDTO {
     private String phoneNumber;
 
     private String email;
+
+    private Long roleId;
 }
