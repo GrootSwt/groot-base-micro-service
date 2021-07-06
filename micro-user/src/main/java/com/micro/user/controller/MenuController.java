@@ -29,4 +29,5 @@ public class MenuController {
         List<Menu> menuList = menuService.getMapMenusByRoleId(roleId);
         return ResultUtil.success("根据角色id获取菜单列表成功！", menuList);
     }
+
 }
