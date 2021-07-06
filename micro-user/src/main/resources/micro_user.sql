@@ -11,7 +11,7 @@
  Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 05/07/2021 15:26:25
+ Date: 06/07/2021 15:01:11
 */
 
 SET NAMES utf8mb4;
@@ -35,14 +35,14 @@ CREATE TABLE `menu`  (
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES (1, '主页', '/home', 'md-home', 1, '1', 0);
-INSERT INTO `menu` VALUES (2, '统计分析', '/analysis', 'md-grid', 2, '1', 0);
-INSERT INTO `menu` VALUES (3, '活跃分析', '/analysis/living', 'md-game-controller-b', 3, '1', 2);
-INSERT INTO `menu` VALUES (4, '时段分析', '/analysis/time', 'md-clock', 4, '1', 2);
-INSERT INTO `menu` VALUES (5, '菜单管理', '/menu', 'md-menu', 5, '1', 0);
-INSERT INTO `menu` VALUES (6, '人员管理', '/menu/person', 'md-person', 6, '1', 5);
-INSERT INTO `menu` VALUES (7, '角色管理', '/menu/role', 'md-ribbon', 7, '1', 5);
-INSERT INTO `menu` VALUES (8, '权限管理', '/menu/power', 'md-swap', 8, '1', 5);
+INSERT INTO `menu` VALUES (1, '主页', '/home', 'el-icon-s-home', 1, '1', 0);
+INSERT INTO `menu` VALUES (2, '统计分析', '/analysis', 'el-icon-s-marketing', 2, '1', 0);
+INSERT INTO `menu` VALUES (3, '活跃分析', '/analysis/living', 'el-icon-place', 3, '1', 2);
+INSERT INTO `menu` VALUES (4, '时段分析', '/analysis/time', 'el-icon-bicycle', 4, '1', 2);
+INSERT INTO `menu` VALUES (5, '菜单管理', '/menu', 'el-icon-s-tools', 5, '1', 0);
+INSERT INTO `menu` VALUES (6, '人员管理', '/menu/person', 'el-icon-user', 6, '1', 5);
+INSERT INTO `menu` VALUES (7, '角色管理', '/menu/role', 'el-icon-key', 7, '1', 5);
+INSERT INTO `menu` VALUES (8, '权限管理', '/menu/power', 'el-icon-lock', 8, '1', 5);
 
 -- ----------------------------
 -- Table structure for role
