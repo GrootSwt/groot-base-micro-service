@@ -1,8 +1,14 @@
 package com.micro.common.dto.user;
 
+import lombok.*;
+
 import java.io.Serializable;
 import java.util.List;
-
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class MenuDTO implements Serializable {
 
     private Long id;
@@ -17,7 +23,7 @@ public class MenuDTO implements Serializable {
 
     private String enabled;
 
-    private Long pId;
+    private Long parentId;
 
     private List<MenuDTO> children;
 }

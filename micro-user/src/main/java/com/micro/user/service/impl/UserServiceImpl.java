@@ -1,9 +1,9 @@
 package com.micro.user.service.impl;
 
+import com.micro.common.dto.user.MenuDTO;
 import com.micro.common.util.JwtTokenUtil;
 import com.micro.common.util.ResultUtil;
 import com.micro.user.convertor.UserConvertor;
-import com.micro.user.model.Menu;
 import com.micro.user.model.Role;
 import com.micro.user.model.User;
 import com.micro.user.repository.RoleRepository;
@@ -51,9 +51,9 @@ public class UserServiceImpl implements UserService {
         }
         // 获取token
         registerUser.setPassword(null);
-        String token = JwtTokenUtil.generatorToken(userConvertor.toDto(registerUser), 60 * 60 * 2);
+        String token = JwtTokenUtil.generatorToken(userConvertor.toDTO(registerUser), 60 * 60 * 2);
         // 获取菜单列表
-        List<Menu> mapMenus = menuService.getMapMenusByRoleId(registerUser.getRoleId());
+        List<MenuDTO> mapMenus = menuService.getMapMenusByRoleId(registerUser.getRoleId());
         // 获取角色信息
         Role role = roleRepository.findFirstById(registerUser.getRoleId());
         // 返回token和登录用户信息

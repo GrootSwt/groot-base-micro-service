@@ -1,20 +1,23 @@
 package com.micro.user.convertor;
 
 import com.micro.common.dto.user.UserDTO;
+import com.micro.user.base.BaseConvertor;
 import com.micro.user.model.User;
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
-public class UserConvertor {
+@Component
+public class UserConvertor extends BaseConvertor<User, UserDTO> {
 
+    @Override
     public User toModel(UserDTO userDTO) {
         User user = new User();
         BeanUtils.copyProperties(userDTO, user);
         return user;
     }
 
-    public UserDTO toDto(User user) {
+    @Override
+    public UserDTO toDTO(User user) {
         UserDTO userDTO = new UserDTO();
         BeanUtils.copyProperties(user, userDTO);
         return userDTO;

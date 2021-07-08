@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * 登录功能
+ */
 @RestController
 public class LoginController {
 
@@ -18,6 +21,11 @@ public class LoginController {
     @Resource
     private UserConvertor userConvertor;
 
+    /**
+     * 登录账号密码校验，并获取用户角色、单位、部门、菜单权限和功能权限
+     * @param userDTO   登录用户DTO
+     * @return  用户角色、单位、部门、菜单权限和功能权限
+     */
     @PostMapping(value = "login")
     public ResultUtil login(@RequestBody UserDTO userDTO) {
         return userService.validateLoginInfoAndGenerateToken(userConvertor.toModel(userDTO));

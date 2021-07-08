@@ -1,22 +1,26 @@
 package com.micro.user.convertor;
 
 import com.micro.common.dto.user.MenuDTO;
+import com.micro.user.base.BaseConvertor;
 import com.micro.user.model.Menu;
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
-public class MenuConvertor {
+@Component
+public class MenuConvertor extends BaseConvertor<Menu, MenuDTO> {
 
-    public Menu toModel(MenuDTO dto) {
-        Menu model = new Menu();
-        BeanUtils.copyProperties(dto, model);
-        return model;
+
+    @Override
+    public Menu toModel(MenuDTO menuDTO) {
+        Menu menu = new Menu();
+        BeanUtils.copyProperties(menuDTO, menu);
+        return menu;
     }
 
-    public MenuDTO toDto(Menu model) {
-        MenuDTO dto = new MenuDTO();
-        BeanUtils.copyProperties(model, dto);
-        return dto;
+    @Override
+    public MenuDTO toDTO(Menu menu) {
+        MenuDTO menuDTO = new MenuDTO();
+        BeanUtils.copyProperties(menu, menuDTO);
+        return menuDTO;
     }
 }

@@ -1,33 +1,95 @@
 package com.micro.user.controller;
 
+import com.micro.common.dto.user.MenuDTO;
 import com.micro.common.util.ResultUtil;
+import com.micro.common.util.SearchData;
+import com.micro.user.convertor.MenuConvertor;
 import com.micro.user.model.Menu;
 import com.micro.user.service.MenuService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * 菜单
+ */
 @RestController
 @RequestMapping(value = "menu")
 public class MenuController {
 
     @Resource
     private MenuService menuService;
+    @Resource
+    private MenuConvertor menuConvertor;
 
+    /**
+     * 获取全部Tree菜单列表
+     * @return Tree菜单列表
+     */
     @GetMapping(value = "getAllMenu")
     public ResultUtil getAllMenu() {
-        List<Menu> menuMap = menuService.getMapMenus();
+        List<MenuDTO> menuMap = menuService.getMapMenus();
         return ResultUtil.success("获取全部菜单成功！", menuMap);
     }
 
+    /**
+     * 根据角色Id获取菜单列表
+     * @param roleId    角色id
+     * @return  菜单列表
+     */
     @GetMapping(value = "getMenuListByRoleId/{roleId}")
     public ResultUtil getMenuListByRoleId(@PathVariable Long roleId) {
-        List<Menu> menuList = menuService.getMapMenusByRoleId(roleId);
+        List<MenuDTO> menuList = menuService.getMapMenusByRoleId(roleId);
         return ResultUtil.success("根据角色id获取菜单列表成功！", menuList);
     }
 
+    /**
+     * 分页条件查询菜单
+     * @param searchData 查询条件
+     * @param pageable  分页信息
+     * @return  一页符合条件的菜单列表
+     */
+    @GetMapping(value = "pageableMenu")
+    public ResultUtil pageableMenu(SearchData searchData, Pageable pageable) {
+        return menuService.pageableMenu(searchData, pageable);
+    }
+
+    /**
+     * 根据菜单Id获取菜单
+     * @param menuId    菜单Id
+     * @return  菜单
+     */
+    @GetMapping(value = "{menuId}/getMenuByMenuId")
+    public ResultUtil getMenuByMenuId(@PathVariable Long menuId) {
+        Menu menu = this.menuService.getMenuByMenuId(menuId);
+        return ResultUtil.success("根据菜单Id获取菜单成功！", menuConvertor.toDTO(menu));
+    }
+
+    /**
+     * 保存修改或新增的菜单
+     * @param menuDTO   修改或新增的菜单
+     * @return  保存菜单是否成功；如果成功，返回新增的菜单Tree
+     */
+    @PostMapping(value = "saveMenu")
+    public ResultUtil saveMenu(@RequestBody MenuDTO menuDTO) {
+        Menu menu = menuService.saveMenu(menuConvertor.toModel(menuDTO));
+        if (menu != null) {
+            List<MenuDTO> menuMap = menuService.getMapMenus();
+            return ResultUtil.success("保存菜单成功！", menuMap);
+        }
+        return ResultUtil.failure("保存菜单失败！");
+    }
+
+    /**
+     * 根据id列表删除菜单
+     *
+     * @param idArr id列表
+     */
+    @DeleteMapping(value = "deleteMenuByIdArr")
+    public ResultUtil deleteMenuByIdArr(Long[] idArr) {
+        menuService.deleteMenuByIdArr(idArr);
+        return ResultUtil.success("删除菜单成功！", menuService.getMapMenus());
+    }
 }
