@@ -5,6 +5,8 @@ import com.micro.user.model.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface RoleRepositoryCustom {
     /**
      * 根据查询和分页条件获取角色列表
@@ -21,4 +23,18 @@ public interface RoleRepositoryCustom {
      * @param ids 角色id列表
      */
     void batchDeleteByIds(Long[] ids);
+
+    /**
+     * 根据角色名模糊插叙角色Id列表
+     *
+     * @param roleName 角色名
+     * @return 角色Id列表
+     */
+    List<Long> findRoleIdsByRoleName(String roleName);
+
+    /**
+     * 获取全部角色名
+     * @return
+     */
+    List<String> getAllRoleName();
 }

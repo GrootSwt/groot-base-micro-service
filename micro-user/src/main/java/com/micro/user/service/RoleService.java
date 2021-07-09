@@ -57,4 +57,6 @@ public interface RoleService {
      * @param ids 角色id列表
      */
     void batchDeleteByIds(Long[] ids);
+
+    List<Role> getAllRoleList();
 }

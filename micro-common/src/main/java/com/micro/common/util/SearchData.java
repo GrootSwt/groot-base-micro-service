@@ -88,6 +88,22 @@ public class SearchData {
         }
     }
 
+    public Long[] getLongArrayValue(String key) {
+        Object o = params.get(key);
+        if (o.getClass().isArray()) {
+            return (Long[]) o;
+        } else if (!List.class.isAssignableFrom(o.getClass())) {
+            return new Long[]{Long.valueOf(String.valueOf(o))};
+        } else {
+            List<Object> list = (List<Object>) o;
+            Long[] arr = new Long[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                arr[i] = (Long) list.get(i);
+            }
+            return arr;
+        }
+    }
+
 
     public void put(final String key, final Object value) {
         this.params.put(key, value);

@@ -30,7 +30,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<MenuDTO> getMapMenus() {
-        List<Menu> allMenuList = menuRepository.findAllByOrderBySort();
+        List<Menu> allMenuList = menuRepository.findAllByEnabledOrderBySort("1");
         List<MenuDTO> menuDTOList = menuConvertor.toListDTO(allMenuList);
         MenuDTO menuDTO = new MenuDTO();
         this.menuListToMap(menuDTO, menuDTOList, 0L);
@@ -63,7 +63,7 @@ public class MenuServiceImpl implements MenuService {
         allByRoleId.forEach(roleRelationMenu -> {
             roleIds.add(roleRelationMenu.getMenuId());
         });
-        List<Menu> menuList = menuRepository.findAllByIdInOrderBySort(roleIds);
+        List<Menu> menuList = menuRepository.findAllByIdInAndEnabledOrderBySort(roleIds, "1");
         List<MenuDTO> menuDTOList = menuConvertor.toListDTO(menuList);
         MenuDTO menuDTO = new MenuDTO();
         this.menuListToMap(menuDTO, menuDTOList, 0L);

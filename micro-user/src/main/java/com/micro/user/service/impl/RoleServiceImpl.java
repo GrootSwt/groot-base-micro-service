@@ -59,4 +59,9 @@ public class RoleServiceImpl implements RoleService {
     public void batchDeleteByIds(Long[] ids) {
         roleRepository.batchDeleteByIds(ids);
     }
+
+    @Override
+    public List<Role> getAllRoleList() {
+        return roleRepository.findAll();
+    }
 }

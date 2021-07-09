@@ -34,6 +34,18 @@ public class RoleRepositoryImpl extends BaseRepository implements RoleRepository
     }
 
     @Override
+    public List<Long> findRoleIdsByRoleName(String roleName) {
+        QRole role = QRole.role;
+        return queryFactory().select(role.id).from(role).where(role.name.like("%" + roleName + "%")).fetch();
+    }
+
+    @Override
+    public List<String> getAllRoleName() {
+        QRole role = QRole.role;
+        return queryFactory().select(role.name).from(role).fetch();
+    }
+
+    @Override
     protected Class<?> getModelClass() {
         return Role.class;
     }

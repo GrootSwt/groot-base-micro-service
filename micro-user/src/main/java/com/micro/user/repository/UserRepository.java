@@ -3,7 +3,9 @@ package com.micro.user.repository;
 import com.micro.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.Collection;
+
+public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryCustom {
 
     /**
      * 根据账号查询用户信息
@@ -21,4 +23,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return 用户信息
      */
     User findFirstByLoginNameAndPassword(String loginName, String password);
+
+    /**
+     * 批量删除用户操作
+     *
+     * @param idArr 用户ids
+     */
+    void deleteByIdIn(Collection<Long> idArr);
+
+    User findFirstById(Long id);
 }

@@ -84,4 +84,10 @@ public class RoleController {
         roleService.batchDeleteByIds(ids);
         return ResultUtil.success("批量删除角色成功！");
     }
+
+    @GetMapping(value = "getAllRoleList")
+    public ResultUtil getAllRoleList() {
+        List<Role> roleList =  roleService.getAllRoleList();
+        return ResultUtil.success("获取所有角色成功！", roleConvertor.toListDTO(roleList));
+    }
 }
