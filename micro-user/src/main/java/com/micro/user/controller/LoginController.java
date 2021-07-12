@@ -2,9 +2,11 @@ package com.micro.user.controller;
 
 import com.micro.common.dto.user.UserDTO;
 import com.micro.common.util.ResultUtil;
+import com.micro.user.bean.ChangePasswordBean;
 import com.micro.user.convertor.UserConvertor;
 import com.micro.user.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,5 +31,11 @@ public class LoginController {
     @PostMapping(value = "login")
     public ResultUtil login(@RequestBody UserDTO userDTO) {
         return userService.validateLoginInfoAndGenerateToken(userConvertor.toModel(userDTO));
+    }
+
+    @PutMapping(value = "changePassword")
+    public ResultUtil changePassword(@RequestBody ChangePasswordBean changePasswordBean) {
+        System.out.println(changePasswordBean);
+        return ResultUtil.success("更改密码成功！");
     }
 }

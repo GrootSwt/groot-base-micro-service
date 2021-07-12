@@ -56,4 +56,11 @@ public interface MenuService {
      * @param idArr id列表
      */
     void deleteMenuByIdArr(Long[] idArr);
+
+    /**
+     * 获取全部启用的菜单
+     *
+     * @return 全部启用菜单
+     */
+    List<MenuDTO> getAllMenuForUser();
 }

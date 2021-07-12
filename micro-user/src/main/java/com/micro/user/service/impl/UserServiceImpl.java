@@ -12,6 +12,7 @@ import com.micro.user.repository.RoleRepository;
 import com.micro.user.repository.UserRepository;
 import com.micro.user.service.MenuService;
 import com.micro.user.service.UserService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +24,9 @@ import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Value(value = "${jwt.expireTime}")
+    private Integer expireTime;
 
     @Resource
     private UserRepository userRepository;
@@ -55,7 +59,7 @@ public class UserServiceImpl implements UserService {
         }
         // 获取token
         registerUser.setPassword(null);
-        String token = JwtTokenUtil.generatorToken(userConvertor.toDTO(registerUser), 60 * 60 * 2);
+        String token = JwtTokenUtil.generatorToken(userConvertor.toDTO(registerUser), expireTime);
         // 获取菜单列表
         List<MenuDTO> mapMenus = menuService.getMapMenusByRoleId(registerUser.getRoleId());
         // 获取角色信息

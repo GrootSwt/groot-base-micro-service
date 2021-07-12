@@ -30,7 +30,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<MenuDTO> getMapMenus() {
-        List<Menu> allMenuList = menuRepository.findAllByEnabledOrderBySort("1");
+        List<Menu> allMenuList = menuRepository.findAllByOrderBySort();
         List<MenuDTO> menuDTOList = menuConvertor.toListDTO(allMenuList);
         MenuDTO menuDTO = new MenuDTO();
         this.menuListToMap(menuDTO, menuDTOList, 0L);
@@ -91,5 +91,14 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(rollbackFor = Exception.class)
     public void deleteMenuByIdArr(Long[] idArr) {
         menuRepository.deleteMenuByIdArr(idArr);
+    }
+
+    @Override
+    public List<MenuDTO> getAllMenuForUser() {
+        List<Menu> allMenuList = menuRepository.findAllByEnabledOrderBySort("1");
+        List<MenuDTO> menuDTOList = menuConvertor.toListDTO(allMenuList);
+        MenuDTO menuDTO = new MenuDTO();
+        this.menuListToMap(menuDTO, menuDTOList, 0L);
+        return menuDTO.getChildren();
     }
 }

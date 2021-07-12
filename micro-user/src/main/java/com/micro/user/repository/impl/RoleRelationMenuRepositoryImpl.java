@@ -4,9 +4,11 @@ import com.micro.user.base.BaseRepository;
 import com.micro.user.model.QRoleRelationMenu;
 import com.micro.user.model.RoleRelationMenu;
 import com.micro.user.repository.RoleRelationMenuRepositoryCustom;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class RoleRelationMenuRepositoryImpl extends BaseRepository implements RoleRelationMenuRepositoryCustom {
     @Override
     public List<Long> getMenuIdsByRoleId(Long roleId) {

@@ -10,10 +10,11 @@ import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+@Repository
 public class UserRepositoryImpl extends BaseRepository implements UserRepositoryCustom {
 
     @Override

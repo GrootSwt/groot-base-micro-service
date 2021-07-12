@@ -5,6 +5,7 @@ import com.micro.common.dto.user.UserDTO;
 import io.jsonwebtoken.*;
 import org.joda.time.DateTime;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public class JwtTokenUtil {
      * 生成token
      *
      * @param userDTOInfo 用户信息
-     * @param expire   过期时间
+     * @param expire      过期时间
      * @return token
      */
     public static String generatorToken(UserDTO userDTOInfo, Integer expire) {
@@ -47,5 +48,17 @@ public class JwtTokenUtil {
         Claims body = claimsJws.getBody();
         String userInfo = JSON.toJSONString(body.get("userInfo", LinkedHashMap.class));
         return JSON.parseObject(userInfo, UserDTO.class);
+    }
+
+    /**
+     * 获取过期时间
+     *
+     * @param token token
+     * @return 过期时间
+     */
+    public static Date getExpireDate(String token) {
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(getKey()).parseClaimsJws(token);
+        Claims body = claimsJws.getBody();
+        return body.getExpiration();
     }
 }

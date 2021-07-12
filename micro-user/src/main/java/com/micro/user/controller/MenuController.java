@@ -26,6 +26,7 @@ public class MenuController {
 
     /**
      * 获取全部Tree菜单列表
+     *
      * @return Tree菜单列表
      */
     @GetMapping(value = "getAllMenu")
@@ -36,8 +37,9 @@ public class MenuController {
 
     /**
      * 根据角色Id获取菜单列表
-     * @param roleId    角色id
-     * @return  菜单列表
+     *
+     * @param roleId 角色id
+     * @return 菜单列表
      */
     @GetMapping(value = "getMenuListByRoleId/{roleId}")
     public ResultUtil getMenuListByRoleId(@PathVariable Long roleId) {
@@ -47,9 +49,10 @@ public class MenuController {
 
     /**
      * 分页条件查询菜单
+     *
      * @param searchData 查询条件
-     * @param pageable  分页信息
-     * @return  一页符合条件的菜单列表
+     * @param pageable   分页信息
+     * @return 一页符合条件的菜单列表
      */
     @GetMapping(value = "pageableMenu")
     public ResultUtil pageableMenu(SearchData searchData, Pageable pageable) {
@@ -58,8 +61,9 @@ public class MenuController {
 
     /**
      * 根据菜单Id获取菜单
-     * @param menuId    菜单Id
-     * @return  菜单
+     *
+     * @param menuId 菜单Id
+     * @return 菜单
      */
     @GetMapping(value = "{menuId}/getMenuByMenuId")
     public ResultUtil getMenuByMenuId(@PathVariable Long menuId) {
@@ -69,8 +73,9 @@ public class MenuController {
 
     /**
      * 保存修改或新增的菜单
-     * @param menuDTO   修改或新增的菜单
-     * @return  保存菜单是否成功；如果成功，返回新增的菜单Tree
+     *
+     * @param menuDTO 修改或新增的菜单
+     * @return 保存菜单是否成功；如果成功，返回新增的菜单Tree
      */
     @PostMapping(value = "saveMenu")
     public ResultUtil saveMenu(@RequestBody MenuDTO menuDTO) {
@@ -91,5 +96,16 @@ public class MenuController {
     public ResultUtil deleteMenuByIdArr(Long[] idArr) {
         menuService.deleteMenuByIdArr(idArr);
         return ResultUtil.success("删除菜单成功！", menuService.getMapMenus());
+    }
+
+    /**
+     * 获取全部启用的菜单
+     *
+     * @return 全部启用菜单
+     */
+    @GetMapping(value = "getAllMenuForUser")
+    public ResultUtil getAllMenuForUser() {
+        List<MenuDTO> menuList = menuService.getAllMenuForUser();
+        return ResultUtil.success("用户分配需要菜单获取成功！", menuList);
     }
 }

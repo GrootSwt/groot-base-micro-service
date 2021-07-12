@@ -12,7 +12,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long>, MenuRepositor
      *
      * @return 菜单列表
      */
-    List<Menu> findAllByEnabledOrderBySort(String enabled);
+    List<Menu> findAllByOrderBySort();
 
     /**
      * 查询所有id在menuIds中的菜单列表并排序
@@ -30,6 +30,13 @@ public interface MenuRepository extends JpaRepository<Menu, Long>, MenuRepositor
      */
     Menu findFirstById(Long menuId);
 
+    /**
+     * 获取全部启用菜单
+     *
+     * @param enabled 启用
+     * @return 全部启用菜单
+     */
+    List<Menu> findAllByEnabledOrderBySort(String enabled);
 
 
 }

@@ -17,5 +17,11 @@ spring:
     password: root
 server:
   port: 60002
+# jwt配置
 jwt:
+  # 密钥
   key: micro
+  # 过期时间（秒）
+  expireTime: 7200
+  # 校验时间（毫秒）
+  validateTime: 300000
