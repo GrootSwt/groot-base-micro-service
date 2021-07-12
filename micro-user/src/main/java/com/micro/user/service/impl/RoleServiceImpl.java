@@ -64,4 +64,10 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> getAllRoleList() {
         return roleRepository.findAll();
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void changeRoleEnabled(Role toModel) {
+        roleRepository.changeRoleEnabled(toModel);
+    }
 }

@@ -48,4 +48,16 @@ public class UserController {
         userService.addOrEditUser(userConvertor.toModel(userDTO));
         return ResultUtil.success("新增或编辑用户成功！");
     }
+
+    /**
+     * 更改用户enabled
+     *
+     * @param userDTO 用户id和用户enabled
+     * @return 更改用户enabled是否成功
+     */
+    @PutMapping(value = "changeUserEnabled")
+    public ResultUtil changeUserEnabled(@RequestBody UserDTO userDTO) {
+        userService.changeUserEnabled(userConvertor.toModel(userDTO));
+        return ResultUtil.success("更改用户启用状态成功！");
+    }
 }

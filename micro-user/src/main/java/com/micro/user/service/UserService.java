@@ -2,6 +2,7 @@ package com.micro.user.service;
 
 import com.micro.common.util.ResultUtil;
 import com.micro.common.util.SearchData;
+import com.micro.user.bean.ChangePasswordBean;
 import com.micro.user.model.User;
 import org.springframework.data.domain.Pageable;
 
@@ -50,7 +51,23 @@ public interface UserService {
 
     /**
      * 根据id获取用户
-     * @param toModel   用户
+     *
+     * @param toModel 用户
      */
     void addOrEditUser(User toModel);
+
+    /**
+     * 更改用户enabled
+     *
+     * @param toModel 用户id和用户enabled
+     */
+    void changeUserEnabled(User toModel);
+
+    /**
+     * 更改密码
+     *
+     * @param changePasswordBean 更改密码
+     * @return 更改密码是否成功
+     */
+    ResultUtil changePassword(ChangePasswordBean changePasswordBean);
 }

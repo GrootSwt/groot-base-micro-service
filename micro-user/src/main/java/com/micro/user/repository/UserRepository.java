@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
      * @param loginName 账号
      * @return 用户信息
      */
-    User findFirstByLoginName(String loginName);
+    User findFirstByLoginNameAndEnabled(String loginName, String enabled);
 
     /**
      * 根据账号和密码查询用户信息

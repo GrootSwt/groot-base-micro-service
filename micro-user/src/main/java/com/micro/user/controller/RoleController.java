@@ -85,9 +85,26 @@ public class RoleController {
         return ResultUtil.success("批量删除角色成功！");
     }
 
+    /**
+     * 获取全部启用角色
+     *
+     * @return 全部启用角色
+     */
     @GetMapping(value = "getAllRoleList")
     public ResultUtil getAllRoleList() {
-        List<Role> roleList =  roleService.getAllRoleList();
+        List<Role> roleList = roleService.getAllRoleList();
         return ResultUtil.success("获取所有角色成功！", roleConvertor.toListDTO(roleList));
+    }
+
+    /**
+     * 更改角色状态
+     *
+     * @param roleDTO 角色id和角色enabled
+     * @return 是否更改成功
+     */
+    @PutMapping(value = "changeRoleEnabled")
+    public ResultUtil changeRoleEnabled(@RequestBody RoleDTO roleDTO) {
+        roleService.changeRoleEnabled(roleConvertor.toModel(roleDTO));
+        return ResultUtil.success("更改角色状态成功！");
     }
 }

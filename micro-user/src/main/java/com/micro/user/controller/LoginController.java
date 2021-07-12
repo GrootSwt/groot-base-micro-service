@@ -25,17 +25,23 @@ public class LoginController {
 
     /**
      * 登录账号密码校验，并获取用户角色、单位、部门、菜单权限和功能权限
-     * @param userDTO   登录用户DTO
-     * @return  用户角色、单位、部门、菜单权限和功能权限
+     *
+     * @param userDTO 登录用户DTO
+     * @return 用户角色、单位、部门、菜单权限和功能权限
      */
     @PostMapping(value = "login")
     public ResultUtil login(@RequestBody UserDTO userDTO) {
         return userService.validateLoginInfoAndGenerateToken(userConvertor.toModel(userDTO));
     }
 
+    /**
+     * 更改密码
+     *
+     * @param changePasswordBean 更改密码
+     * @return 更改密码是否成功
+     */
     @PutMapping(value = "changePassword")
     public ResultUtil changePassword(@RequestBody ChangePasswordBean changePasswordBean) {
-        System.out.println(changePasswordBean);
-        return ResultUtil.success("更改密码成功！");
+        return userService.changePassword(changePasswordBean);
     }
 }

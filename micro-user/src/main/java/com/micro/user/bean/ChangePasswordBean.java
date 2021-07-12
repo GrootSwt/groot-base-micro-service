@@ -8,6 +8,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChangePasswordBean {
+
+    private Long id;
+
     private String oldPassword;
 
     private String newPassword;

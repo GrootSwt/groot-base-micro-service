@@ -48,6 +48,12 @@ public class RoleRepositoryImpl extends BaseRepository implements RoleRepository
     }
 
     @Override
+    public void changeRoleEnabled(Role toModel) {
+        QRole role = QRole.role;
+        queryFactory().update(role).set(role.enabled, toModel.getEnabled()).where(role.id.eq(toModel.getId())).execute();
+    }
+
+    @Override
     protected Class<?> getModelClass() {
         return Role.class;
     }

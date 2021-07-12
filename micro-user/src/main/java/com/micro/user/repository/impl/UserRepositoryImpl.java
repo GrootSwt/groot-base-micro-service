@@ -2,6 +2,7 @@ package com.micro.user.repository.impl;
 
 import com.micro.common.util.SearchData;
 import com.micro.user.base.BaseRepository;
+import com.micro.user.bean.ChangePasswordBean;
 import com.micro.user.model.QUser;
 import com.micro.user.model.User;
 import com.micro.user.repository.UserRepositoryCustom;
@@ -31,6 +32,26 @@ public class UserRepositoryImpl extends BaseRepository implements UserRepository
         long total = query.fetchCount();
         List<User> userList = querydsl().applyPagination(pageable, query).fetch();
         return new PageImpl<>(userList, pageable, total);
+    }
+
+    @Override
+    public void changeUserEnable(User toModel) {
+        QUser user = QUser.user;
+        queryFactory()
+                .update(user)
+                .set(user.enabled, toModel.getEnabled())
+                .where(user.id.eq(toModel.getId()))
+                .execute();
+    }
+
+    @Override
+    public void changePassword(ChangePasswordBean changePasswordBean) {
+        QUser user = QUser.user;
+        queryFactory()
+                .update(user)
+                .set(user.password, changePasswordBean.getNewPassword())
+                .where(user.id.eq(changePasswordBean.getId()))
+                .execute();
     }
 
     @Override

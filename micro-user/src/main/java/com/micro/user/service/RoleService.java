@@ -39,7 +39,6 @@ public interface RoleService {
      *
      * @param roleId     角色Id
      * @param allMenuIds 菜单Id列表
-     * @return 角色分配权限是否成功
      */
     void assignPermissions(Long roleId, List<Long> allMenuIds);
 
@@ -47,7 +46,6 @@ public interface RoleService {
      * 保存角色
      *
      * @param toModel 角色
-     * @return 保存角色是否成功
      */
     void saveRole(Role toModel);
 
@@ -58,5 +56,17 @@ public interface RoleService {
      */
     void batchDeleteByIds(Long[] ids);
 
+    /**
+     * 获取全部启用角色
+     *
+     * @return 全部启用角色
+     */
     List<Role> getAllRoleList();
+
+    /**
+     * 更改角色状态
+     *
+     * @param toModel 角色id和角色enabled
+     */
+    void changeRoleEnabled(Role toModel);
 }

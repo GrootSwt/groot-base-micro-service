@@ -5,6 +5,7 @@ import com.micro.common.dto.user.UserDTO;
 import com.micro.common.util.JwtTokenUtil;
 import com.micro.common.util.ResultUtil;
 import com.micro.common.util.SearchData;
+import com.micro.user.bean.ChangePasswordBean;
 import com.micro.user.convertor.UserConvertor;
 import com.micro.user.model.Role;
 import com.micro.user.model.User;
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
 
     public User getUserByLoginName(String loginName) {
-        return userRepository.findFirstByLoginName(loginName);
+        return userRepository.findFirstByLoginNameAndEnabled(loginName, "1");
     }
 
     @Override
@@ -49,9 +50,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResultUtil validateLoginInfoAndGenerateToken(User user) {
         // 检查登录人是否注册
-        User registerUser = userRepository.findFirstByLoginName(user.getLoginName());
+        User registerUser = userRepository.findFirstByLoginNameAndEnabled(user.getLoginName(), "1");
         if (registerUser == null) {
-            return ResultUtil.failure("用户没有注册!");
+            return ResultUtil.failure("用户没有注册或账号未启用!");
         }
         // 判断账号密码是否正确
         if (!registerUser.getLoginName().equals(user.getLoginName()) || !registerUser.getPassword().equals(user.getPassword())) {
@@ -107,6 +108,23 @@ public class UserServiceImpl implements UserService {
             user.setPassword(userModel.getPassword());
         }
         userRepository.save(user);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void changeUserEnabled(User toModel) {
+        userRepository.changeUserEnable(toModel);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResultUtil changePassword(ChangePasswordBean changePasswordBean) {
+        User user = userRepository.findFirstById(changePasswordBean.getId());
+        if (!user.getPassword().equals(changePasswordBean.getOldPassword())) {
+            return ResultUtil.failure("原密码输入错误");
+        }
+        userRepository.changePassword(changePasswordBean);
+        return ResultUtil.success("修改密码成功！");
     }
 
     /**

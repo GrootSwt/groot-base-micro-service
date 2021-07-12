@@ -34,7 +34,15 @@ public interface RoleRepositoryCustom {
 
     /**
      * 获取全部角色名
-     * @return
+     *
+     * @return 全部角色名
      */
     List<String> getAllRoleName();
+
+    /**
+     * 更改角色状态
+     *
+     * @param toModel 角色id和角色enabled
+     */
+    void changeRoleEnabled(Role toModel);
 }

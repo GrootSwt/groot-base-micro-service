@@ -1,6 +1,7 @@
 package com.micro.user.repository;
 
 import com.micro.common.util.SearchData;
+import com.micro.user.bean.ChangePasswordBean;
 import com.micro.user.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,4 +18,16 @@ public interface UserRepositoryCustom {
      */
     Page<User> pageableSearch(Pageable pageable, SearchData searchData);
 
+    /**
+     * 更改用户enabled
+     *
+     * @param toModel 用户id和用户enabled
+     */
+    void changeUserEnable(User toModel);
+
+    /**
+     * 更改密码
+     * @param changePasswordBean    用户id和新密码
+     */
+    void changePassword(ChangePasswordBean changePasswordBean);
 }
