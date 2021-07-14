@@ -50,7 +50,7 @@ public class AuthorizationFilter implements GlobalFilter, Ordered {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return response.setComplete();
         }
-        // 获取token和登录名
+        // 获取token和登录用户信息
         List<HttpCookie> tokenList = cookies.get("token");
         List<HttpCookie> userInfoList = cookies.get("userInfo");
 
