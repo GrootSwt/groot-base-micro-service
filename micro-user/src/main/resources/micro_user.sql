@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 本地
+ Source Server         : 127.0.0.1
  Source Server Type    : MySQL
  Source Server Version : 50731
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 08/07/2021 16:54:10
+ Date: 20/07/2021 17:08:46
 */
 
 SET NAMES utf8mb4;
@@ -30,7 +30,7 @@ CREATE TABLE `menu`  (
   `enabled` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '是否启用（0：未启用，1：启用）',
   `parent_id` bigint(20) NOT NULL COMMENT '父菜单ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu
@@ -39,6 +39,7 @@ INSERT INTO `menu` VALUES (1, '主页', '/home', 'el-icon-s-home', 1, '1', 0);
 INSERT INTO `menu` VALUES (2, '系统管理', '/system', 'el-icon-s-tools', 2, '1', 0);
 INSERT INTO `menu` VALUES (3, '菜单管理', '/system/menu', 'el-icon-menu', 1, '1', 2);
 INSERT INTO `menu` VALUES (11, '角色管理', '/system/role', 'fa fa-chain', 2, '1', 2);
+INSERT INTO `menu` VALUES (12, '用户管理', '/system/user', 'el-icon-user-solid', 3, '0', 2);
 
 -- ----------------------------
 -- Table structure for role
@@ -48,14 +49,16 @@ CREATE TABLE `role`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色名',
   `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色描述',
+  `enabled` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '是否启用',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES (1, '普通用户', '没有系统管理权限');
-INSERT INTO `role` VALUES (5, '系统管理用户', '负责系统管理功能');
+INSERT INTO `role` VALUES (0, '超级用户', '超级用户', '1');
+INSERT INTO `role` VALUES (1, '普通用户', '没有系统管理权限', '1');
+INSERT INTO `role` VALUES (5, '系统管理用户', '负责系统管理功能', '1');
 
 -- ----------------------------
 -- Table structure for role_relation_menu
@@ -66,7 +69,7 @@ CREATE TABLE `role_relation_menu`  (
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   `menu_id` bigint(20) NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_relation_menu
@@ -76,6 +79,11 @@ INSERT INTO `role_relation_menu` VALUES (7, 3, 1);
 INSERT INTO `role_relation_menu` VALUES (8, 3, 2);
 INSERT INTO `role_relation_menu` VALUES (9, 3, 3);
 INSERT INTO `role_relation_menu` VALUES (10, 3, 11);
+INSERT INTO `role_relation_menu` VALUES (16, 5, 1);
+INSERT INTO `role_relation_menu` VALUES (17, 5, 2);
+INSERT INTO `role_relation_menu` VALUES (18, 5, 3);
+INSERT INTO `role_relation_menu` VALUES (19, 5, 11);
+INSERT INTO `role_relation_menu` VALUES (20, 5, 12);
 
 -- ----------------------------
 -- Table structure for user
@@ -89,13 +97,14 @@ CREATE TABLE `user`  (
   `phone_number` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系方式',
   `email` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '邮箱',
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  `enabled` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '启用状态（0：未启用；1：启用）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'admin', '123456', 'admin', '18888888888', '18888888888@micro.com', 0);
-INSERT INTO `user` VALUES (2, 'swt', '123456', 'swt', '17777777777', '17777777777@micro.com', 1);
+INSERT INTO `user` VALUES (1, 'admin', '123456', 'admin', '18888888888', '18888888888@micro.com', 0, '1');
+INSERT INTO `user` VALUES (5, 'swt', '123456', 'swt', '188345839847', '389458@qq.com', 5, '1');
 
 SET FOREIGN_KEY_CHECKS = 1;
