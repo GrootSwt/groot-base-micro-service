@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+/**
+ * 菜单Repository
+ */
 public interface MenuRepository extends JpaRepository<Menu, Long>, MenuRepositoryCustom {
 
     /**
