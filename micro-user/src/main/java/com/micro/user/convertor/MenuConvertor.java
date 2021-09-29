@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class MenuConvertor extends BaseConvertor<Menu, MenuDTO> {
 
-
     @Override
     public Menu toModel(MenuDTO menuDTO) {
         Menu menu = new Menu();

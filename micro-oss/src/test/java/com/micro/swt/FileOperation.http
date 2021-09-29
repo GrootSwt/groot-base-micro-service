@@ -1,0 +1,24 @@
+POST http://localhost:60001/micro-user/login
+Content-Type: application/json
+
+{
+  "loginName": "admin",
+  "password": "123456"
+
+}
+
+###
+GET http://localhost:60001/micro-user/menu/getAllMenu
+
+
+###
+POST http://localhost:60001/micro-oss/fileOperation/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="two"; filename="two.jpg"
+
+< C:\Users\swt\Pictures\two.jpg
+--WebAppBoundary--
+
+###

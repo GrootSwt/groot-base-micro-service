@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: micro-oss
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 1000MB
+      max-file-size: 100MB
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/micro_oss?serverTimezone=GMT
+    username: root
+    password: 123456
+server:
+  port: 60003
+# jwt配置
+jwt:
+  # 密钥
+  key: micro
+  # 过期时间（秒）
+  expireTime: 7200
+  # 校验时间（毫秒）
+  validateTime: 300000
+# 文件配置
+file:
+  # 保存根目录
+  fileRootPath: D:/upload/files
