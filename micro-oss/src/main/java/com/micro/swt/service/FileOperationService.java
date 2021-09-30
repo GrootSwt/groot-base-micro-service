@@ -12,4 +12,12 @@ public interface FileOperationService {
     List<FileInfo> upload(HttpServletRequest request);
 
     void download(Long id, HttpServletResponse response) throws BusinessException, IOException;
+
+    FileInfo getFileInfoById(Long id) throws BusinessException;
+
+    List<FileInfo> listFileInfoByIdArr(Long[] idArr);
+
+    void deleteFileById(Long id) throws BusinessException;
+
+    void deleteFileListByIdArr(Long[] idArr);
 }

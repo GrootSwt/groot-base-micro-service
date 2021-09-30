@@ -7,6 +7,7 @@ import com.micro.swt.repository.FileInfoRepository;
 import com.micro.swt.service.FileOperationService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartResolver;
@@ -37,9 +38,12 @@ public class FileOperationServiceImpl implements FileOperationService {
         } else {
             multipartRequest = (MultipartHttpServletRequest) request;
         }
+
         List<FileInfo> fileInfoList = new ArrayList<>();
-        Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
-        fileMap.values().forEach(file -> fileInfoList.add(saveFile(file)));
+        MultiValueMap<String, MultipartFile> multiFileMap = multipartRequest.getMultiFileMap();
+        multiFileMap.forEach((name, fileList) -> {
+            fileList.forEach(file -> fileInfoList.add(saveFile(file)));
+        });
         return fileInfoRepository.saveAll(fileInfoList);
     }
 
@@ -79,6 +83,35 @@ public class FileOperationServiceImpl implements FileOperationService {
         }
     }
 
+    @Override
+    public FileInfo getFileInfoById(Long id) throws BusinessException {
+        FileInfo fileInfo = fileInfoRepository.findFirstById(id);
+        if (fileInfo == null) {
+            throw new BusinessException("文件不存在！");
+        }
+        return fileInfo;
+    }
+
+    @Override
+    public List<FileInfo> listFileInfoByIdArr(Long[] idArr) {
+        return fileInfoRepository.findAllById(Arrays.asList(idArr));
+    }
+
+    @Override
+    public void deleteFileById(Long id) throws BusinessException {
+        FileInfo fileInfo = fileInfoRepository.findFirstById(id);
+        if (fileInfo == null) {
+            throw new BusinessException("将要删除的异常不存在！");
+        }
+        deleteFileAndInfo(fileInfo);
+    }
+
+    @Override
+    public void deleteFileListByIdArr(Long[] idArr) {
+        List<FileInfo> fileInfoList = fileInfoRepository.findAllById(Arrays.asList(idArr));
+        fileInfoList.forEach(this::deleteFileAndInfo);
+    }
+
     private FileInfo saveFile(MultipartFile file) {
         FileInfo fileInfo = new FileInfo();
         try {
@@ -109,6 +142,7 @@ public class FileOperationServiceImpl implements FileOperationService {
 
     /**
      * 生成本地保存的文件名
+     *
      * @param fileName 文件本名
      * @return 本地保存文件名
      */
@@ -124,6 +158,7 @@ public class FileOperationServiceImpl implements FileOperationService {
 
     /**
      * 根据本地保存的文件名创建文件
+     *
      * @param saveFileName 本地保存的文件名
      * @return 文件
      */
@@ -133,5 +168,23 @@ public class FileOperationServiceImpl implements FileOperationService {
             file.mkdirs();
         }
         return new File(file, saveFileName);
+    }
+
+    /**
+     * 删除文件和文件信息
+     *
+     * @param fileInfo 文件信息
+     */
+    private void deleteFileAndInfo(FileInfo fileInfo) {
+        String filePath = fileInfo.getFilePath().substring(0, fileInfo.getFilePath().indexOf("_"))
+                + "/"
+                + fileInfo.getFilePath();
+        // 删除文件
+        File file = new File(fileRootPath, filePath);
+        file.delete();
+        File rootFile = new File(fileRootPath,fileInfo.getFilePath().substring(0, fileInfo.getFilePath().indexOf("_")));
+        rootFile.delete();
+        // 删除文件信息
+        fileInfoRepository.delete(fileInfo);
     }
 }
