@@ -23,7 +23,7 @@ import java.util.*;
 @Service
 public class FileOperationServiceImpl implements FileOperationService {
 
-    @Value(value = "${file.fileRootPath}")
+    @Value(value = "${micro.file.rootPath}")
     private String fileRootPath;
     @Resource
     private MultipartResolver multipartResolver;

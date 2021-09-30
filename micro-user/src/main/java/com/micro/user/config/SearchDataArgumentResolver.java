@@ -1,4 +1,4 @@
-package com.micro.user.resolver;
+package com.micro.user.config;
 
 import com.micro.common.util.SearchData;
 import org.springframework.core.MethodParameter;

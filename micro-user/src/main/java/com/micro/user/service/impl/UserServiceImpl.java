@@ -26,7 +26,7 @@ import java.util.*;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Value(value = "${jwt.expireTime}")
+    @Value(value = "${micro.jwt.expireTime}")
     private Integer expireTime;
 
     @Resource

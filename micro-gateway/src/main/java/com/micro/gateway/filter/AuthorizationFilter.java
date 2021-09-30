@@ -29,10 +29,10 @@ import java.util.List;
 @Component
 public class AuthorizationFilter implements GlobalFilter, Ordered {
 
-    @Value(value = "${jwt.expireTime}")
+    @Value(value = "${micro.jwt.expireTime}")
     private Integer expireTime;
 
-    @Value(value = "${jwt.validateTime}")
+    @Value(value = "${micro.jwt.validateTime}")
     private Long validateTime;
 
     @Override

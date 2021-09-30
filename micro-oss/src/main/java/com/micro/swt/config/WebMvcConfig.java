@@ -1,4 +1,4 @@
-package com.micro.user.config;
+package com.micro.swt.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -13,7 +13,6 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     /**
      * handler method searchData、pageable 形参解析器
-     *
      * @param argumentResolvers handler method 形参解析器列表
      */
     @Override

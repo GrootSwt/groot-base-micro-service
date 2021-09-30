@@ -22,15 +22,11 @@ spring:
     password: 123456
 server:
   port: 60003
-# jwt配置
-jwt:
-  # 密钥
-  key: micro
-  # 过期时间（秒）
-  expireTime: 7200
-  # 校验时间（毫秒）
-  validateTime: 300000
-# 文件配置
-file:
-  # 保存根目录
-  fileRootPath: D:/upload/files
+
+micro:
+  swagger:
+    title: 文件服务
+    description: 文件操作
+    version: 1.0
+  file:
+    rootPath: D:/upload/files
