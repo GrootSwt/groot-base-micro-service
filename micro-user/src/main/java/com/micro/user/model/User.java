@@ -30,5 +30,7 @@ public class User {
 
     private Long roleId;
 
+    private Long avatar;
+
     private String enabled;
 }

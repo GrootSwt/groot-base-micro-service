@@ -101,7 +101,7 @@ public class FileOperationServiceImpl implements FileOperationService {
     public void deleteFileById(Long id) throws BusinessException {
         FileInfo fileInfo = fileInfoRepository.findFirstById(id);
         if (fileInfo == null) {
-            throw new BusinessException("将要删除的异常不存在！");
+            throw new BusinessException("将要删除的文件不存在！");
         }
         deleteFileAndInfo(fileInfo);
     }

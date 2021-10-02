@@ -70,4 +70,16 @@ public interface UserService {
      * @return 更改密码是否成功
      */
     ResultUtil changePassword(ChangePasswordBean changePasswordBean);
+
+    /**
+     * 用户授权
+     *
+     * @param toModel 用户
+     * @return 是否授权成功
+     */
+    ResultUtil authorization(User toModel);
+
+    ResultUtil modifyUserInfo(User toModel);
+
+    ResultUtil modifyAvatar(User toModel);
 }

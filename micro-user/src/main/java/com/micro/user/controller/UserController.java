@@ -60,4 +60,25 @@ public class UserController {
         userService.changeUserEnabled(userConvertor.toModel(userDTO));
         return ResultUtil.success("更改用户启用状态成功！");
     }
+
+    /**
+     * 用户授权
+     *
+     * @param userDTO 用户DTO
+     * @return 是否授权成功
+     */
+    @PutMapping(value = "authorization")
+    public ResultUtil authorization(@RequestBody UserDTO userDTO) {
+        return userService.authorization(userConvertor.toModel(userDTO));
+    }
+
+    @PutMapping(value = "modifyUserInfo")
+    public ResultUtil modifyUserInfo(@RequestBody UserDTO userDTO) {
+        return userService.modifyUserInfo(userConvertor.toModel(userDTO));
+    }
+
+    @PutMapping(value = "modifyAvatar")
+    public ResultUtil modifyAvatar(@RequestBody UserDTO userDTO) {
+        return userService.modifyAvatar(userConvertor.toModel(userDTO));
+    }
 }

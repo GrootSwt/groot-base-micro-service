@@ -23,6 +23,8 @@ public class UserDTO implements Serializable {
 
     private String email;
 
+    private Long avatar;
+
     private Long roleId;
 
     private String roleName;

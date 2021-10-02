@@ -3,6 +3,7 @@ package com.micro.gateway.filter;
 import com.alibaba.fastjson.JSON;
 import com.micro.common.dto.user.UserDTO;
 import com.micro.common.util.JwtTokenUtil;
+import com.micro.gateway.bean.Whitelist;
 import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -18,6 +19,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Date;
@@ -35,14 +37,19 @@ public class AuthorizationFilter implements GlobalFilter, Ordered {
     @Value(value = "${micro.jwt.validateTime}")
     private Long validateTime;
 
+    @Resource
+    private Whitelist whitelist;
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
         String uri = request.getURI().toString();
-        //  登录请求放行
-        if (uri.contains("login")) {
-            return chain.filter(exchange);
+        //  白名单请求放行
+        for (String s : whitelist.getWhitelist()) {
+            if (uri.contains(s)) {
+                return chain.filter(exchange);
+            }
         }
         // 获取Cookies
         MultiValueMap<String, HttpCookie> cookies = request.getCookies();
@@ -87,7 +94,6 @@ public class AuthorizationFilter implements GlobalFilter, Ordered {
             if (times <= validateTime) {
                 String newToken = JwtTokenUtil.generatorToken(userDTOInfo, expireTime);
                 response.addCookie(ResponseCookie.from("token", newToken).build());
-                // response.addCookie(ResponseCookie.from("userInfo", userInfoStr2).build());
                 exchange.mutate().response(response).build();
             }
             return chain.filter(exchange);

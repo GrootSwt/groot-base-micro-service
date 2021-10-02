@@ -127,6 +127,43 @@ public class UserServiceImpl implements UserService {
         return ResultUtil.success("修改密码成功！");
     }
 
+    @Override
+    public ResultUtil authorization(User toModel) {
+        User user = userRepository.findFirstById(toModel.getId());
+        if (user == null) {
+            return ResultUtil.failure("用户不存在！");
+        }
+        user.setRoleId(toModel.getRoleId());
+        userRepository.save(user);
+        return ResultUtil.success("用户授权成功！");
+    }
+
+    @Override
+    public ResultUtil modifyUserInfo(User toModel) {
+        User user = userRepository.findFirstById(toModel.getId());
+        if (user == null) {
+            return ResultUtil.failure("用户不存在！");
+        }
+        user.setUsername(toModel.getUsername());
+        user.setPhoneNumber(toModel.getPhoneNumber());
+        user.setEmail(toModel.getEmail());
+        User result = userRepository.save(user);
+        user.setPassword(null);
+        return ResultUtil.success("更改用户信息成功！", result);
+    }
+
+    @Override
+    public ResultUtil modifyAvatar(User toModel) {
+        User user = userRepository.findFirstById(toModel.getId());
+        if (user == null) {
+            return ResultUtil.failure("用户不存在！");
+        }
+        user.setAvatar(toModel.getAvatar());
+        User result = userRepository.save(user);
+        user.setPassword(null);
+        return ResultUtil.success("设置头像成功！", userConvertor.toDTO(result));
+    }
+
     /**
      * 根据角色Id和角色列表获取角色名
      *

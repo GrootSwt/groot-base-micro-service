@@ -1,6 +1,8 @@
 package com.micro.common.util;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.micro.common.bean.JwtBean;
 import com.micro.common.dto.user.UserDTO;
 import io.jsonwebtoken.*;
 import org.joda.time.DateTime;
@@ -20,8 +22,9 @@ public class JwtTokenUtil {
      */
     public static String getKey() {
         Map<String, Object> map = YamlUtil.getYamlByPath("");
-        Map jwtKey = JSON.parseObject(JSON.toJSONString(map.get("jwt")), Map.class);
-        return jwtKey.get("key").toString();
+        JSONObject micro = JSON.parseObject(JSON.toJSONString(map.get("micro")));
+        JwtBean jwtBean = JSON.parseObject(JSON.toJSONString(micro.getJSONObject("jwt")), JwtBean.class);
+        return jwtBean.getKey();
     }
 
     /**

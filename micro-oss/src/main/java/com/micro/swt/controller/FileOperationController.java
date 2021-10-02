@@ -42,7 +42,7 @@ public class FileOperationController {
      * @throws BusinessException 文件不存在时
      * @throws IOException       IO异常
      */
-    @GetMapping(value = "{id}/download")
+    @GetMapping(value = "download/{id}")
     public void download(@PathVariable Long id, HttpServletResponse response) throws BusinessException, IOException {
         fileOperationService.download(id, response);
     }
