@@ -5,6 +5,8 @@ import com.micro.swt.convertor.FileInfoConvertor;
 import com.micro.swt.exception.BusinessException;
 import com.micro.swt.model.FileInfo;
 import com.micro.swt.service.FileOperationService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+@Api(tags = "文件操作")
 @RestController
 @RequestMapping(value = "fileOperation")
 public class FileOperationController {
@@ -28,6 +31,7 @@ public class FileOperationController {
      * @param request 请求
      * @return 文件信息
      */
+    @ApiOperation(value = "文件上传")
     @PostMapping(value = "upload")
     public ResultUtil upload(HttpServletRequest request) {
         List<FileInfo> fileInfoList = fileOperationService.upload(request);
@@ -42,6 +46,7 @@ public class FileOperationController {
      * @throws BusinessException 文件不存在时
      * @throws IOException       IO异常
      */
+    @ApiOperation(value = "文件下载")
     @GetMapping(value = "download/{id}")
     public void download(@PathVariable Long id, HttpServletResponse response) throws BusinessException, IOException {
         fileOperationService.download(id, response);
@@ -54,6 +59,7 @@ public class FileOperationController {
      * @return 文件信息
      * @throws BusinessException 文件信息不存在
      */
+    @ApiOperation(value = "获取文件信息")
     @GetMapping(value = "{id}/getFileInfoById")
     public ResultUtil getFileInfoById(@PathVariable Long id) throws BusinessException {
         FileInfo fileInfo = fileOperationService.getFileInfoById(id);
@@ -66,6 +72,7 @@ public class FileOperationController {
      * @param idArr 文件id列表
      * @return 文件列表信息
      */
+    @ApiOperation(value = "获取文件列表信息")
     @GetMapping(value = "listFileInfoByIdArr")
     public ResultUtil listFileInfoByIdArr(@RequestParam Long[] idArr) {
         List<FileInfo> fileInfoList = fileOperationService.listFileInfoByIdArr(idArr);
@@ -79,6 +86,7 @@ public class FileOperationController {
      * @return 文件是否删除成功
      * @throws BusinessException 文件不存在异常
      */
+    @ApiOperation(value = "根据文件信息id删除文件和文件信息")
     @DeleteMapping(value = "{id}/deleteFileById")
     public ResultUtil deleteFileById(@PathVariable Long id) throws BusinessException {
         fileOperationService.deleteFileById(id);
@@ -91,6 +99,7 @@ public class FileOperationController {
      * @param idArr 文件信息id列表
      * @return 是否删除成功
      */
+    @ApiOperation(value = "根据文件信息id列表批量删除文件和文件信息")
     @DeleteMapping(value = "deleteFileListByIdArr")
     public ResultUtil deleteFileListByIdArr(@RequestParam Long[] idArr) {
         fileOperationService.deleteFileListByIdArr(idArr);

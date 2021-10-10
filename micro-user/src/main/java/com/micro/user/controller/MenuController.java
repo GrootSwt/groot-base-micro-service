@@ -6,6 +6,8 @@ import com.micro.common.util.SearchData;
 import com.micro.user.convertor.MenuConvertor;
 import com.micro.user.model.Menu;
 import com.micro.user.service.MenuService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,7 @@ import java.util.List;
 /**
  * 菜单
  */
+@Api(tags = {"菜单"})
 @RestController
 @RequestMapping(value = "menu")
 public class MenuController {
@@ -29,6 +32,7 @@ public class MenuController {
      *
      * @return Tree菜单列表
      */
+    @ApiOperation(value = "获取全部Tree菜单列表")
     @GetMapping(value = "getAllMenu")
     public ResultUtil getAllMenu() {
         List<MenuDTO> menuMap = menuService.getMapMenus();
@@ -41,6 +45,7 @@ public class MenuController {
      * @param roleId 角色id
      * @return 菜单列表
      */
+    @ApiOperation(value = "根据角色Id获取菜单列表")
     @GetMapping(value = "getMenuListByRoleId/{roleId}")
     public ResultUtil getMenuListByRoleId(@PathVariable Long roleId) {
         List<MenuDTO> menuList = menuService.getMapMenusByRoleId(roleId);
@@ -54,6 +59,7 @@ public class MenuController {
      * @param pageable   分页信息
      * @return 一页符合条件的菜单列表
      */
+    @ApiOperation(value = "分页条件查询菜单")
     @GetMapping(value = "pageableMenu")
     public ResultUtil pageableMenu(SearchData searchData, Pageable pageable) {
         return menuService.pageableMenu(searchData, pageable);
@@ -65,6 +71,7 @@ public class MenuController {
      * @param menuId 菜单Id
      * @return 菜单
      */
+    @ApiOperation(value = "根据菜单Id获取菜单")
     @GetMapping(value = "{menuId}/getMenuByMenuId")
     public ResultUtil getMenuByMenuId(@PathVariable Long menuId) {
         Menu menu = this.menuService.getMenuByMenuId(menuId);
@@ -77,6 +84,7 @@ public class MenuController {
      * @param menuDTO 修改或新增的菜单
      * @return 保存菜单是否成功；如果成功，返回新增的菜单Tree
      */
+    @ApiOperation(value = "保存修改或新增的菜单")
     @PostMapping(value = "saveMenu")
     public ResultUtil saveMenu(@RequestBody MenuDTO menuDTO) {
         Menu menu = menuService.saveMenu(menuConvertor.toModel(menuDTO));
@@ -92,6 +100,7 @@ public class MenuController {
      *
      * @param idArr id列表
      */
+    @ApiOperation(value = "根据id列表删除菜单")
     @DeleteMapping(value = "deleteMenuByIdArr")
     public ResultUtil deleteMenuByIdArr(Long[] idArr) {
         menuService.deleteMenuByIdArr(idArr);
@@ -103,6 +112,7 @@ public class MenuController {
      *
      * @return 全部启用菜单
      */
+    @ApiOperation(value = "获取全部启用的菜单")
     @GetMapping(value = "getAllMenuForUser")
     public ResultUtil getAllMenuForUser() {
         List<MenuDTO> menuList = menuService.getAllMenuForUser();

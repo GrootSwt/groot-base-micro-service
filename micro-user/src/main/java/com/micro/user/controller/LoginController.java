@@ -2,13 +2,11 @@ package com.micro.user.controller;
 
 import com.micro.common.dto.user.UserDTO;
 import com.micro.common.util.ResultUtil;
-import com.micro.user.bean.ChangePasswordBean;
 import com.micro.user.convertor.UserConvertor;
 import com.micro.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +15,7 @@ import javax.annotation.Resource;
 /**
  * 登录功能
  */
-@Api(tags = {"登录Controller"})
+@Api(tags = {"登录"})
 @RestController
 public class LoginController {
 
@@ -38,15 +36,4 @@ public class LoginController {
         return userService.validateLoginInfoAndGenerateToken(userConvertor.toModel(userDTO));
     }
 
-    /**
-     * 更改密码
-     *
-     * @param changePasswordBean 更改密码
-     * @return 更改密码是否成功
-     */
-    @ApiOperation(value = "更改密码")
-    @PutMapping(value = "changePassword")
-    public ResultUtil changePassword(@RequestBody ChangePasswordBean changePasswordBean) {
-        return userService.changePassword(changePasswordBean);
-    }
 }

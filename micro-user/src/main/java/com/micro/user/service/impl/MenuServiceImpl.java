@@ -55,7 +55,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     public List<MenuDTO> getMapMenusByRoleId(Long roleId) {
-        if (roleId.equals(0L)) {
+        if (roleId.equals(1L)) {
             return this.getMapMenus();
         }
         List<RoleRelationMenu> allByRoleId = roleRelationMenuRepository.findAllByRoleId(roleId);

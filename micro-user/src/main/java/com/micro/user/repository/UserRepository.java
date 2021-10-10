@@ -31,5 +31,12 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
      */
     void deleteByIdIn(Collection<Long> idArr);
 
+    /**
+     * 根据id查询用户
+     * @param id 用户id
+     * @return 用户信息
+     */
     User findFirstById(Long id);
+
+    User findFirstByRoleId(Long roleId);
 }
