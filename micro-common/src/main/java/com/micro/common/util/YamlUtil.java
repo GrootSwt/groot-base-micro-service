@@ -17,7 +17,7 @@ public class YamlUtil {
     /**
      * 根据路径获取yaml中的数据
      *
-     * @param path 路径
+     * @param path 文件路径
      * @return yaml中的数据
      */
     public static Map<String, Object> getYamlByPath(String path) {
