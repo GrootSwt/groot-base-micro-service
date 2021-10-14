@@ -1,6 +1,6 @@
 package com.micro.base.common.config;
 
-import com.micro.base.common.bean.ResultUtil;
+import com.micro.base.common.bean.ResultData;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,9 +14,9 @@ public class GlobalExceptionHandler {
      * @return  Result.failure(异常信息)
      */
     @ExceptionHandler(value = Exception.class)
-    public ResultUtil exceptionHandler(Exception e) {
+    public ResultData exceptionHandler(Exception e) {
         e.printStackTrace();
-        return ResultUtil.failure(e.getMessage());
+        return ResultData.failure(e.getMessage());
     }
 }
 

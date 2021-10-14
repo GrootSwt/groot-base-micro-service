@@ -1,7 +1,7 @@
 package com.micro.user.controller;
 
 import com.micro.common.dto.user.MenuDTO;
-import com.micro.base.common.bean.ResultUtil;
+import com.micro.base.common.bean.ResultData;
 import com.micro.base.common.bean.SearchData;
 import com.micro.user.convertor.MenuConvertor;
 import com.micro.user.model.Menu;
@@ -34,9 +34,9 @@ public class MenuController {
      */
     @ApiOperation(value = "获取全部Tree菜单列表")
     @GetMapping(value = "getAllMenu")
-    public ResultUtil getAllMenu() {
+    public ResultData getAllMenu() {
         List<MenuDTO> menuMap = menuService.getMapMenus();
-        return ResultUtil.success("获取全部菜单成功！", menuMap);
+        return ResultData.success("获取全部菜单成功！", menuMap);
     }
 
     /**
@@ -47,9 +47,9 @@ public class MenuController {
      */
     @ApiOperation(value = "根据角色Id获取菜单列表")
     @GetMapping(value = "getMenuListByRoleId/{roleId}")
-    public ResultUtil getMenuListByRoleId(@PathVariable Long roleId) {
+    public ResultData getMenuListByRoleId(@PathVariable Long roleId) {
         List<MenuDTO> menuList = menuService.getMapMenusByRoleId(roleId);
-        return ResultUtil.success("根据角色id获取菜单列表成功！", menuList);
+        return ResultData.success("根据角色id获取菜单列表成功！", menuList);
     }
 
     /**
@@ -61,7 +61,7 @@ public class MenuController {
      */
     @ApiOperation(value = "分页条件查询菜单")
     @GetMapping(value = "pageableMenu")
-    public ResultUtil pageableMenu(SearchData searchData, Pageable pageable) {
+    public ResultData pageableMenu(SearchData searchData, Pageable pageable) {
         return menuService.pageableMenu(searchData, pageable);
     }
 
@@ -73,9 +73,9 @@ public class MenuController {
      */
     @ApiOperation(value = "根据菜单Id获取菜单")
     @GetMapping(value = "{menuId}/getMenuByMenuId")
-    public ResultUtil getMenuByMenuId(@PathVariable Long menuId) {
+    public ResultData getMenuByMenuId(@PathVariable Long menuId) {
         Menu menu = this.menuService.getMenuByMenuId(menuId);
-        return ResultUtil.success("根据菜单Id获取菜单成功！", menuConvertor.toDTO(menu));
+        return ResultData.success("根据菜单Id获取菜单成功！", menuConvertor.toDTO(menu));
     }
 
     /**
@@ -86,13 +86,13 @@ public class MenuController {
      */
     @ApiOperation(value = "保存修改或新增的菜单")
     @PostMapping(value = "saveMenu")
-    public ResultUtil saveMenu(@RequestBody MenuDTO menuDTO) {
+    public ResultData saveMenu(@RequestBody MenuDTO menuDTO) {
         Menu menu = menuService.saveMenu(menuConvertor.toModel(menuDTO));
         if (menu != null) {
             List<MenuDTO> menuMap = menuService.getMapMenus();
-            return ResultUtil.success("保存菜单成功！", menuMap);
+            return ResultData.success("保存菜单成功！", menuMap);
         }
-        return ResultUtil.failure("保存菜单失败！");
+        return ResultData.failure("保存菜单失败！");
     }
 
     /**
@@ -102,9 +102,9 @@ public class MenuController {
      */
     @ApiOperation(value = "根据id列表删除菜单")
     @DeleteMapping(value = "deleteMenuByIdArr")
-    public ResultUtil deleteMenuByIdArr(Long[] idArr) {
+    public ResultData deleteMenuByIdArr(Long[] idArr) {
         menuService.deleteMenuByIdArr(idArr);
-        return ResultUtil.success("删除菜单成功！", menuService.getMapMenus());
+        return ResultData.success("删除菜单成功！", menuService.getMapMenus());
     }
 
     /**
@@ -114,8 +114,8 @@ public class MenuController {
      */
     @ApiOperation(value = "获取全部启用的菜单")
     @GetMapping(value = "getAllMenuForUser")
-    public ResultUtil getAllMenuForUser() {
+    public ResultData getAllMenuForUser() {
         List<MenuDTO> menuList = menuService.getAllMenuForUser();
-        return ResultUtil.success("用户分配需要菜单获取成功！", menuList);
+        return ResultData.success("用户分配需要菜单获取成功！", menuList);
     }
 }

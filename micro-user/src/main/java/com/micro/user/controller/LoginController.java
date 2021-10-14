@@ -1,7 +1,7 @@
 package com.micro.user.controller;
 
 import com.micro.common.dto.user.UserDTO;
-import com.micro.base.common.bean.ResultUtil;
+import com.micro.base.common.bean.ResultData;
 import com.micro.user.convertor.UserConvertor;
 import com.micro.user.service.UserService;
 import io.swagger.annotations.Api;
@@ -32,7 +32,7 @@ public class LoginController {
      */
     @ApiOperation(value = "登录")
     @PostMapping(value = "login")
-    public ResultUtil login(@RequestBody UserDTO userDTO) {
+    public ResultData login(@RequestBody UserDTO userDTO) {
         return userService.validateLoginInfoAndGenerateToken(userConvertor.toModel(userDTO));
     }
 

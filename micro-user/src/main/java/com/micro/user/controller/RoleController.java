@@ -1,7 +1,7 @@
 package com.micro.user.controller;
 
 import com.micro.common.dto.user.RoleDTO;
-import com.micro.base.common.bean.ResultUtil;
+import com.micro.base.common.bean.ResultData;
 import com.micro.base.common.bean.SearchData;
 import com.micro.user.convertor.RoleConvertor;
 import com.micro.user.model.Role;
@@ -35,9 +35,9 @@ public class RoleController {
      */
     @ApiOperation(value = "根据查询和分页条件获取角色列表")
     @GetMapping(value = "pageableSearch")
-    public ResultUtil pageableSearch(SearchData searchData, Pageable pageable) {
+    public ResultData pageableSearch(SearchData searchData, Pageable pageable) {
         Page<Role> rolePage = roleService.pageableSearch(searchData, pageable);
-        return ResultUtil.success("条件分页查询角色列表成功！", roleConvertor.toPageDTO(rolePage));
+        return ResultData.success("条件分页查询角色列表成功！", roleConvertor.toPageDTO(rolePage));
     }
 
     /**
@@ -48,9 +48,9 @@ public class RoleController {
      */
     @ApiOperation(value = "根据角色Id获取菜单Ids列表")
     @GetMapping(value = "{id}/getMenuIdArrByRoleId")
-    public ResultUtil getMenuIdArrByRoleId(@PathVariable Long id) {
+    public ResultData getMenuIdArrByRoleId(@PathVariable Long id) {
         List<Long> menuIdList = roleService.getMenuIdArrByRoleId(id);
-        return ResultUtil.success("根据角色id获取菜单Id列表成功！", menuIdList);
+        return ResultData.success("根据角色id获取菜单Id列表成功！", menuIdList);
     }
 
     /**
@@ -62,9 +62,9 @@ public class RoleController {
      */
     @ApiOperation(value = "角色分配权限")
     @PutMapping(value = "{roleId}/assignPermissions")
-    public ResultUtil assignPermissions(@PathVariable Long roleId, @RequestBody List<Long> allMenuIds) {
+    public ResultData assignPermissions(@PathVariable Long roleId, @RequestBody List<Long> allMenuIds) {
         roleService.assignPermissions(roleId, allMenuIds);
-        return ResultUtil.success("角色分配权限成功！");
+        return ResultData.success("角色分配权限成功！");
     }
 
     /**
@@ -75,7 +75,7 @@ public class RoleController {
      */
     @ApiOperation(value = "保存角色")
     @PostMapping(value = "saveRole")
-    public ResultUtil saveRole(@RequestBody RoleDTO roleDTO) {
+    public ResultData saveRole(@RequestBody RoleDTO roleDTO) {
         return roleService.saveRole(roleConvertor.toModel(roleDTO));
     }
 
@@ -87,7 +87,7 @@ public class RoleController {
      */
     @ApiOperation(value = "批量删除角色成功")
     @DeleteMapping(value = "batchDeleteByIds")
-    public ResultUtil batchDeleteByIds(Long[] ids) {
+    public ResultData batchDeleteByIds(Long[] ids) {
         return roleService.batchDeleteByIds(ids);
     }
 
@@ -98,9 +98,9 @@ public class RoleController {
      */
     @ApiOperation(value = "获取全部启用角色")
     @GetMapping(value = "getAllRoleList")
-    public ResultUtil getAllRoleList() {
+    public ResultData getAllRoleList() {
         List<Role> roleList = roleService.getAllRoleList();
-        return ResultUtil.success("获取所有角色成功！", roleConvertor.toListDTO(roleList));
+        return ResultData.success("获取所有角色成功！", roleConvertor.toListDTO(roleList));
     }
 
     /**
@@ -111,7 +111,7 @@ public class RoleController {
      */
     @ApiOperation(value = "更改角色状态")
     @PutMapping(value = "changeRoleEnabled")
-    public ResultUtil changeRoleEnabled(@RequestBody RoleDTO roleDTO) {
+    public ResultData changeRoleEnabled(@RequestBody RoleDTO roleDTO) {
         return roleService.changeRoleEnabled(roleConvertor.toModel(roleDTO));
     }
 }

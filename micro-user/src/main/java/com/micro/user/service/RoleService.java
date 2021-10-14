@@ -1,6 +1,6 @@
 package com.micro.user.service;
 
-import com.micro.base.common.bean.ResultUtil;
+import com.micro.base.common.bean.ResultData;
 import com.micro.base.common.bean.SearchData;
 import com.micro.user.model.Role;
 import org.springframework.data.domain.Page;
@@ -48,14 +48,14 @@ public interface RoleService {
      *
      * @param toModel 角色
      */
-    ResultUtil saveRole(Role toModel);
+    ResultData saveRole(Role toModel);
 
     /**
      * 批量删除角色
      *
      * @param ids 角色id列表
      */
-    ResultUtil batchDeleteByIds(Long[] ids);
+    ResultData batchDeleteByIds(Long[] ids);
 
     /**
      * 获取全部启用角色
@@ -69,5 +69,5 @@ public interface RoleService {
      *
      * @param toModel 角色id和角色enabled
      */
-    ResultUtil changeRoleEnabled(Role toModel);
+    ResultData changeRoleEnabled(Role toModel);
 }

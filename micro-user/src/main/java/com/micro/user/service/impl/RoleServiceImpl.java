@@ -1,6 +1,6 @@
 package com.micro.user.service.impl;
 
-import com.micro.base.common.bean.ResultUtil;
+import com.micro.base.common.bean.ResultData;
 import com.micro.base.common.bean.SearchData;
 import com.micro.user.model.Role;
 import com.micro.user.model.RoleRelationMenu;
@@ -55,28 +55,28 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResultUtil saveRole(Role role) {
+    public ResultData saveRole(Role role) {
         if (role.getId() != null && "0".equals(role.getEnabled())) {
             User user = userRepository.findFirstByRoleId(role.getId());
             if (user != null) {
-                return ResultUtil.failure("该角色下存在用户，不可禁用！");
+                return ResultData.failure("该角色下存在用户，不可禁用！");
             }
         }
         roleRepository.save(role);
-        return ResultUtil.success("保存成功！");
+        return ResultData.success("保存成功！");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResultUtil batchDeleteByIds(Long[] ids) {
+    public ResultData batchDeleteByIds(Long[] ids) {
         for (Long id : ids) {
             User user = userRepository.findFirstByRoleId(id);
             if (user != null) {
-                return ResultUtil.failure("批量删除的角色列表中有用户,不可删除！");
+                return ResultData.failure("批量删除的角色列表中有用户,不可删除！");
             }
         }
         roleRepository.batchDeleteByIds(ids);
-        return ResultUtil.success("角色批量删除成功！");
+        return ResultData.success("角色批量删除成功！");
     }
 
     @Override
@@ -86,14 +86,14 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResultUtil changeRoleEnabled(Role toModel) {
+    public ResultData changeRoleEnabled(Role toModel) {
         if ("0".equals(toModel.getEnabled())) {
             User user = userRepository.findFirstByRoleId(toModel.getId());
             if (user != null) {
-                return ResultUtil.failure("该角色下有用户，不可禁用！");
+                return ResultData.failure("该角色下有用户，不可禁用！");
             }
         }
         roleRepository.changeRoleEnabled(toModel);
-        return ResultUtil.success("角色状态改变操作成功！");
+        return ResultData.success("角色状态改变操作成功！");
     }
 }

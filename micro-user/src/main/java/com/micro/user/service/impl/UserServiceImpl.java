@@ -3,7 +3,7 @@ package com.micro.user.service.impl;
 import com.micro.common.dto.user.MenuDTO;
 import com.micro.common.dto.user.UserDTO;
 import com.micro.common.util.JwtTokenUtil;
-import com.micro.base.common.bean.ResultUtil;
+import com.micro.base.common.bean.ResultData;
 import com.micro.base.common.bean.SearchData;
 import com.micro.user.bean.ChangePasswordBean;
 import com.micro.user.convertor.UserConvertor;
@@ -48,15 +48,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultUtil validateLoginInfoAndGenerateToken(User user) {
+    public ResultData validateLoginInfoAndGenerateToken(User user) {
         // 检查登录人是否注册
         User registerUser = userRepository.findFirstByLoginNameAndEnabled(user.getLoginName(), "1");
         if (registerUser == null) {
-            return ResultUtil.failure("用户没有注册或账号未启用!");
+            return ResultData.failure("用户没有注册或账号未启用!");
         }
         // 判断账号密码是否正确
         if (!registerUser.getLoginName().equals(user.getLoginName()) || !registerUser.getPassword().equals(user.getPassword())) {
-            return ResultUtil.failure("账号或密码不正确！");
+            return ResultData.failure("账号或密码不正确！");
         }
         // 获取token
         registerUser.setPassword(null);
@@ -71,11 +71,11 @@ public class UserServiceImpl implements UserService {
         data.put("token", token);
         data.put("menu", mapMenus);
         data.put("role", role);
-        return ResultUtil.success("登录成功！", data);
+        return ResultData.success("登录成功！", data);
     }
 
     @Override
-    public ResultUtil pageableSearch(Pageable pageable, SearchData searchData) {
+    public ResultData pageableSearch(Pageable pageable, SearchData searchData) {
         // 根据查询条件中的角色名查询角色Id
         if (searchData.hasKey("roleName")) {
             List<Long> roleIds = roleRepository.findRoleIdsByRoleName(searchData.getStringValue("roleName"));
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
             userDTO.setRoleName(getRoleNameById(userDTO.getRoleId(), roleList));
         });
         PageImpl<UserDTO> userDTOPage = new PageImpl<>(userDTOList, userPage.getPageable(), userPage.getTotalElements());
-        return ResultUtil.success("分页条件查询用户信息成功！", userDTOPage);
+        return ResultData.success("分页条件查询用户信息成功！", userDTOPage);
     }
 
     @Override
@@ -118,50 +118,50 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResultUtil changePassword(ChangePasswordBean changePasswordBean) {
+    public ResultData changePassword(ChangePasswordBean changePasswordBean) {
         User user = userRepository.findFirstById(changePasswordBean.getId());
         if (!user.getPassword().equals(changePasswordBean.getOldPassword())) {
-            return ResultUtil.failure("原密码输入错误");
+            return ResultData.failure("原密码输入错误");
         }
         userRepository.changePassword(changePasswordBean);
-        return ResultUtil.success("修改密码成功！");
+        return ResultData.success("修改密码成功！");
     }
 
     @Override
-    public ResultUtil authorization(User toModel) {
+    public ResultData authorization(User toModel) {
         User user = userRepository.findFirstById(toModel.getId());
         if (user == null) {
-            return ResultUtil.failure("用户不存在！");
+            return ResultData.failure("用户不存在！");
         }
         user.setRoleId(toModel.getRoleId());
         userRepository.save(user);
-        return ResultUtil.success("用户授权成功！");
+        return ResultData.success("用户授权成功！");
     }
 
     @Override
-    public ResultUtil modifyUserInfo(User toModel) {
+    public ResultData modifyUserInfo(User toModel) {
         User user = userRepository.findFirstById(toModel.getId());
         if (user == null) {
-            return ResultUtil.failure("用户不存在！");
+            return ResultData.failure("用户不存在！");
         }
         user.setUsername(toModel.getUsername());
         user.setPhoneNumber(toModel.getPhoneNumber());
         user.setEmail(toModel.getEmail());
         User result = userRepository.save(user);
         user.setPassword(null);
-        return ResultUtil.success("更改用户信息成功！", result);
+        return ResultData.success("更改用户信息成功！", result);
     }
 
     @Override
-    public ResultUtil modifyAvatar(User toModel) {
+    public ResultData modifyAvatar(User toModel) {
         User user = userRepository.findFirstById(toModel.getId());
         if (user == null) {
-            return ResultUtil.failure("用户不存在！");
+            return ResultData.failure("用户不存在！");
         }
         user.setAvatar(toModel.getAvatar());
         User result = userRepository.save(user);
         user.setPassword(null);
-        return ResultUtil.success("设置头像成功！", userConvertor.toDTO(result));
+        return ResultData.success("设置头像成功！", userConvertor.toDTO(result));
     }
 
     /**

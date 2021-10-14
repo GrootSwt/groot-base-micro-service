@@ -1,7 +1,7 @@
 package com.micro.user.controller;
 
 import com.micro.common.dto.user.UserDTO;
-import com.micro.base.common.bean.ResultUtil;
+import com.micro.base.common.bean.ResultData;
 import com.micro.base.common.bean.SearchData;
 import com.micro.user.bean.ChangePasswordBean;
 import com.micro.user.convertor.UserConvertor;
@@ -32,7 +32,7 @@ public class UserController {
      */
     @ApiOperation(value = "分页查询用户列表")
     @GetMapping(value = "pageableSearch")
-    public ResultUtil pageableSearch(Pageable pageable, SearchData searchData) {
+    public ResultData pageableSearch(Pageable pageable, SearchData searchData) {
         return userService.pageableSearch(pageable, searchData);
     }
 
@@ -44,16 +44,16 @@ public class UserController {
      */
     @ApiOperation(value = "批量删除用户操作")
     @DeleteMapping(value = "batchDelete")
-    public ResultUtil batchDelete(Long[] idArr) {
+    public ResultData batchDelete(Long[] idArr) {
         userService.batchDelete(idArr);
-        return ResultUtil.success("批量删除成功！");
+        return ResultData.success("批量删除成功！");
     }
 
     @ApiOperation(value = "添加或者编辑用户（管理员修改）")
     @PostMapping(value = "addOrEditUser")
-    public ResultUtil addOrEditUser(@RequestBody UserDTO userDTO) {
+    public ResultData addOrEditUser(@RequestBody UserDTO userDTO) {
         userService.addOrEditUser(userConvertor.toModel(userDTO));
-        return ResultUtil.success("新增或编辑用户成功！");
+        return ResultData.success("新增或编辑用户成功！");
     }
 
     /**
@@ -64,9 +64,9 @@ public class UserController {
      */
     @ApiOperation(value = "更改用户enabled")
     @PutMapping(value = "changeUserEnabled")
-    public ResultUtil changeUserEnabled(@RequestBody UserDTO userDTO) {
+    public ResultData changeUserEnabled(@RequestBody UserDTO userDTO) {
         userService.changeUserEnabled(userConvertor.toModel(userDTO));
-        return ResultUtil.success("更改用户启用状态成功！");
+        return ResultData.success("更改用户启用状态成功！");
     }
 
     /**
@@ -77,7 +77,7 @@ public class UserController {
      */
     @ApiOperation(value = "用户授权")
     @PutMapping(value = "authorization")
-    public ResultUtil authorization(@RequestBody UserDTO userDTO) {
+    public ResultData authorization(@RequestBody UserDTO userDTO) {
         return userService.authorization(userConvertor.toModel(userDTO));
     }
 
@@ -89,14 +89,14 @@ public class UserController {
      */
     @ApiOperation(value = "更改用户信息（用户自己修改）")
     @PutMapping(value = "modifyUserInfo")
-    public ResultUtil modifyUserInfo(@RequestBody UserDTO userDTO) {
+    public ResultData modifyUserInfo(@RequestBody UserDTO userDTO) {
         return userService.modifyUserInfo(userConvertor.toModel(userDTO));
     }
 
 
     @ApiOperation(value = "更改头像")
     @PutMapping(value = "modifyAvatar")
-    public ResultUtil modifyAvatar(@RequestBody UserDTO userDTO) {
+    public ResultData modifyAvatar(@RequestBody UserDTO userDTO) {
         return userService.modifyAvatar(userConvertor.toModel(userDTO));
     }
 
@@ -108,7 +108,7 @@ public class UserController {
      */
     @ApiOperation(value = "更改密码")
     @PutMapping(value = "changePassword")
-    public ResultUtil changePassword(@RequestBody ChangePasswordBean changePasswordBean) {
+    public ResultData changePassword(@RequestBody ChangePasswordBean changePasswordBean) {
         return userService.changePassword(changePasswordBean);
     }
 }

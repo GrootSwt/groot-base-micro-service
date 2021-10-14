@@ -1,6 +1,6 @@
 package com.micro.user.service;
 
-import com.micro.base.common.bean.ResultUtil;
+import com.micro.base.common.bean.ResultData;
 import com.micro.base.common.bean.SearchData;
 import com.micro.user.bean.ChangePasswordBean;
 import com.micro.user.model.User;
@@ -31,7 +31,7 @@ public interface UserService {
      * @param user 登录人输入的账号和密码
      * @return 登陆人的相关信息
      */
-    ResultUtil validateLoginInfoAndGenerateToken(User user);
+    ResultData validateLoginInfoAndGenerateToken(User user);
 
     /**
      * 分页条件查询用户信息
@@ -40,7 +40,7 @@ public interface UserService {
      * @param searchData 查询条件
      * @return 用户列表
      */
-    ResultUtil pageableSearch(Pageable pageable, SearchData searchData);
+    ResultData pageableSearch(Pageable pageable, SearchData searchData);
 
     /**
      * 批量删除用户操作
@@ -69,7 +69,7 @@ public interface UserService {
      * @param changePasswordBean 更改密码
      * @return 更改密码是否成功
      */
-    ResultUtil changePassword(ChangePasswordBean changePasswordBean);
+    ResultData changePassword(ChangePasswordBean changePasswordBean);
 
     /**
      * 用户授权
@@ -77,9 +77,9 @@ public interface UserService {
      * @param toModel 用户
      * @return 是否授权成功
      */
-    ResultUtil authorization(User toModel);
+    ResultData authorization(User toModel);
 
-    ResultUtil modifyUserInfo(User toModel);
+    ResultData modifyUserInfo(User toModel);
 
-    ResultUtil modifyAvatar(User toModel);
+    ResultData modifyAvatar(User toModel);
 }

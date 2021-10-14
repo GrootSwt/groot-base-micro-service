@@ -1,7 +1,7 @@
 package com.micro.user.service.impl;
 
 import com.micro.common.dto.user.MenuDTO;
-import com.micro.base.common.bean.ResultUtil;
+import com.micro.base.common.bean.ResultData;
 import com.micro.base.common.bean.SearchData;
 import com.micro.user.convertor.MenuConvertor;
 import com.micro.user.model.Menu;
@@ -71,10 +71,10 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public ResultUtil pageableMenu(SearchData searchData, Pageable pageable) {
+    public ResultData pageableMenu(SearchData searchData, Pageable pageable) {
         Page<Menu> menuList = menuRepository.pageableMenu(searchData, pageable);
         Page<MenuDTO> menuDTOPage = menuConvertor.toPageDTO(menuList);
-        return ResultUtil.success("分页条件查询菜单列表成功！", menuDTOPage);
+        return ResultData.success("分页条件查询菜单列表成功！", menuDTOPage);
     }
 
     @Override

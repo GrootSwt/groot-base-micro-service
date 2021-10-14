@@ -1,7 +1,7 @@
 package com.micro.user.service;
 
 import com.micro.common.dto.user.MenuDTO;
-import com.micro.base.common.bean.ResultUtil;
+import com.micro.base.common.bean.ResultData;
 import com.micro.base.common.bean.SearchData;
 import com.micro.user.model.Menu;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +32,7 @@ public interface MenuService {
      * @param pageable   分页条件
      * @return 分页菜单列表
      */
-    ResultUtil pageableMenu(SearchData searchData, Pageable pageable);
+    ResultData pageableMenu(SearchData searchData, Pageable pageable);
 
     /**
      * 根据菜单Id获取菜单
