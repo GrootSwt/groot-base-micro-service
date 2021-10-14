@@ -7,6 +7,9 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+/**
+ * 处理器方法入参解析器
+ */
 public class SearchDataArgumentResolver implements HandlerMethodArgumentResolver {
     /**
      * 形参类型是否与自己想要对特殊参数进行封装的类型一致

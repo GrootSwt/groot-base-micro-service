@@ -5,7 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * 返回值工具类
+ * 返回类
  */
 @Getter
 @Setter
