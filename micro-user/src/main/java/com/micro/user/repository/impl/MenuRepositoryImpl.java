@@ -1,7 +1,7 @@
 package com.micro.user.repository.impl;
 
-import com.micro.common.util.SearchData;
-import com.micro.user.base.BaseRepository;
+import com.micro.base.common.repository.BaseRepository;
+import com.micro.base.common.bean.SearchData;
 import com.micro.user.model.Menu;
 import com.micro.user.model.QMenu;
 import com.micro.user.repository.MenuRepositoryCustom;

@@ -1,6 +1,6 @@
 package com.micro.user.repository;
 
-import com.micro.common.util.SearchData;
+import com.micro.base.common.bean.SearchData;
 import com.micro.user.bean.ChangePasswordBean;
 import com.micro.user.model.User;
 import org.springframework.data.domain.Page;

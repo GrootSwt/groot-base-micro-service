@@ -1,15 +1,15 @@
 package com.micro.user;
 
+import com.micro.base.common.annotation.EnableMicroBaseWeb;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableJpaRepositories
 @EnableDiscoveryClient
-@EnableSwagger2
+@EnableMicroBaseWeb
 public class UserApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserApplication.class, args);

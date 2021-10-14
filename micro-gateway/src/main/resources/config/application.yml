@@ -12,7 +12,9 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-
+logging:
+  level:
+    com.alibaba.nacos.client.config.impl: WARN
 micro:
   # 网关配置
   gateway:

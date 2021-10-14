@@ -1,7 +1,7 @@
 package com.micro.user.convertor;
 
+import com.micro.base.common.convertor.BaseConvertor;
 import com.micro.common.dto.user.RoleDTO;
-import com.micro.user.base.BaseConvertor;
 import com.micro.user.model.Role;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,8 @@
 package com.micro.user.controller;
 
 import com.micro.common.dto.user.RoleDTO;
-import com.micro.common.util.ResultUtil;
-import com.micro.common.util.SearchData;
+import com.micro.base.common.bean.ResultUtil;
+import com.micro.base.common.bean.SearchData;
 import com.micro.user.convertor.RoleConvertor;
 import com.micro.user.model.Role;
 import com.micro.user.service.RoleService;

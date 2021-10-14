@@ -1,6 +1,6 @@
 package com.micro.user.repository.impl;
 
-import com.micro.user.base.BaseRepository;
+import com.micro.base.common.repository.BaseRepository;
 import com.micro.user.model.QRoleRelationMenu;
 import com.micro.user.model.RoleRelationMenu;
 import com.micro.user.repository.RoleRelationMenuRepositoryCustom;

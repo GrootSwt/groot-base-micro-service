@@ -1,7 +1,7 @@
 package com.micro.user.repository.impl;
 
-import com.micro.common.util.SearchData;
-import com.micro.user.base.BaseRepository;
+import com.micro.base.common.repository.BaseRepository;
+import com.micro.base.common.bean.SearchData;
 import com.micro.user.bean.ChangePasswordBean;
 import com.micro.user.model.QUser;
 import com.micro.user.model.User;

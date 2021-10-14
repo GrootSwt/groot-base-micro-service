@@ -8,9 +8,10 @@
     <artifactId>micro-service</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
+        <module>micro-base-common</module>
+        <module>micro-base-web</module>
         <module>micro-gateway</module>
         <module>micro-user</module>
-        <module>micro-common</module>
         <module>micro-oss</module>
     </modules>
     <packaging>pom</packaging>
