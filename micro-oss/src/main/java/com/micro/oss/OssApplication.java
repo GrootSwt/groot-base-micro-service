@@ -1,6 +1,6 @@
 package com.micro.oss;
 
-import com.micro.base.common.annotation.EnableMicroBaseWeb;
+import com.micro.base.web.annotation.EnableMicroBaseWeb;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

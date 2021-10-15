@@ -1,8 +1,8 @@
 package com.micro.gateway.filter;
 
 import com.alibaba.fastjson.JSON;
-import com.micro.common.dto.user.UserDTO;
-import com.micro.common.util.JwtTokenUtil;
+import com.micro.base.common.dto.user.UserDTO;
+import com.micro.base.common.util.JwtTokenUtil;
 import com.micro.gateway.bean.Whitelist;
 import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Value;

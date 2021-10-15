@@ -1,8 +1,8 @@
 package com.micro.oss.controller;
 
-import com.micro.base.common.bean.ResultData;
+import com.micro.base.web.bean.ResultData;
 import com.micro.oss.convertor.FileInfoConvertor;
-import com.micro.base.common.exception.BusinessRuntimeException;
+import com.micro.base.web.exception.BusinessRuntimeException;
 import com.micro.oss.model.FileInfo;
 import com.micro.oss.service.FileOperationService;
 import io.swagger.annotations.Api;

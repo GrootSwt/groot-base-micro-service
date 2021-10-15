@@ -1,7 +1,7 @@
 package com.micro.user.service.impl;
 
-import com.micro.base.common.bean.ResultData;
-import com.micro.base.common.bean.SearchData;
+import com.micro.base.web.bean.ResultData;
+import com.micro.base.web.bean.SearchData;
 import com.micro.user.model.Role;
 import com.micro.user.model.RoleRelationMenu;
 import com.micro.user.model.User;

@@ -1,7 +1,7 @@
 package com.micro.oss.service.impl;
 
 import cn.hutool.core.io.FileTypeUtil;
-import com.micro.base.common.exception.BusinessRuntimeException;
+import com.micro.base.web.exception.BusinessRuntimeException;
 import com.micro.oss.model.FileInfo;
 import com.micro.oss.repository.FileInfoRepository;
 import com.micro.oss.service.FileOperationService;

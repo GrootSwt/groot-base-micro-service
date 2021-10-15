@@ -1,10 +1,10 @@
 package com.micro.user.service.impl;
 
-import com.micro.common.dto.user.MenuDTO;
-import com.micro.common.dto.user.UserDTO;
-import com.micro.common.util.JwtTokenUtil;
-import com.micro.base.common.bean.ResultData;
-import com.micro.base.common.bean.SearchData;
+import com.micro.base.common.dto.user.MenuDTO;
+import com.micro.base.common.dto.user.UserDTO;
+import com.micro.base.common.util.JwtTokenUtil;
+import com.micro.base.web.bean.ResultData;
+import com.micro.base.web.bean.SearchData;
 import com.micro.user.bean.ChangePasswordBean;
 import com.micro.user.convertor.UserConvertor;
 import com.micro.user.model.Role;

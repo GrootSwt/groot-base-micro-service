@@ -1,6 +1,6 @@
 package com.micro.oss.service;
 
-import com.micro.base.common.exception.BusinessRuntimeException;
+import com.micro.base.web.exception.BusinessRuntimeException;
 import com.micro.oss.model.FileInfo;
 
 import javax.servlet.http.HttpServletRequest;

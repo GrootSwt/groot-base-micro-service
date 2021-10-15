@@ -1,7 +1,7 @@
 package com.micro.user.convertor;
 
-import com.micro.base.common.convertor.BaseConvertor;
-import com.micro.common.dto.user.MenuDTO;
+import com.micro.base.web.convertor.BaseConvertor;
+import com.micro.base.common.dto.user.MenuDTO;
 import com.micro.user.model.Menu;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
