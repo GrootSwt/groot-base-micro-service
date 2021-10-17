@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -24,6 +25,8 @@ public class MenuDTO implements Serializable {
     private String enabled;
 
     private Long parentId;
+
+    private String type;
 
     private List<MenuDTO> children;
 }

@@ -30,4 +30,5 @@ public class Menu {
 
     private Long parentId;
 
+    private String type;
 }
