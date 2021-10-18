@@ -49,4 +49,5 @@ public interface MenuRepository extends JpaRepository<Menu, Long>, MenuRepositor
     List<Menu> findAllByEnabledOrderBySort(String enabled);
 
 
+
 }

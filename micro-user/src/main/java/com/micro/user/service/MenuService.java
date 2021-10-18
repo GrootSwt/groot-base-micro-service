@@ -63,4 +63,7 @@ public interface MenuService {
      * @return 全部启用菜单
      */
     List<MenuDTO> getAllMenuForUser();
+
+
+    List<String> getAuthorityByRoleId(Long roleId);
 }

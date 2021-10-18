@@ -118,4 +118,11 @@ public class MenuController {
         List<MenuDTO> menuList = menuService.getAllMenuForUser();
         return ResultData.success("用户分配需要菜单获取成功！", menuList);
     }
+
+    @ApiOperation(value = "根据角色id获取权限")
+    @GetMapping(value = "{roleId}/getAuthorities")
+    public ResultData getAuthorities(@PathVariable Long roleId) {
+        List<String> authorities = menuService.getAuthorityByRoleId(roleId);
+        return ResultData.success("获取权限成功！", authorities);
+    }
 }

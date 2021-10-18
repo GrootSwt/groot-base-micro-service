@@ -33,7 +33,7 @@ public class MenuServiceImpl implements MenuService {
         List<Menu> allMenuList;
         if (isAll) {
             allMenuList = menuRepository.findAllByOrderBySort();
-        }else {
+        } else {
             allMenuList = menuRepository.findAllByTypeOrderBySort("1");
         }
 
@@ -107,5 +107,27 @@ public class MenuServiceImpl implements MenuService {
         MenuDTO menuDTO = new MenuDTO();
         this.menuListToMap(menuDTO, menuDTOList, 0L);
         return menuDTO.getChildren();
+    }
+
+    @Override
+    public List<String> getAuthorityByRoleId(Long roleId) {
+        List<String> authorities = new ArrayList<>();
+        if (roleId == 1L) {
+            List<Menu> menuList = menuRepository.findAllByTypeOrderBySort("2");
+            for (Menu menu : menuList) {
+                authorities.add(menu.getLocation());
+            }
+        } else {
+            List<RoleRelationMenu> roleRelationMenus = roleRelationMenuRepository.findAllByRoleId(roleId);
+            List<Long> menuIds = new ArrayList<>();
+            for (RoleRelationMenu roleRelationMenu : roleRelationMenus) {
+                menuIds.add(roleRelationMenu.getMenuId());
+            }
+            List<Menu> menuList = menuRepository.findAllByIdInAndEnabledAndTypeOrderBySort(menuIds, "1", "2");
+            for (Menu menu : menuList) {
+                authorities.add(menu.getLocation());
+            }
+        }
+        return authorities;
     }
 }

@@ -63,6 +63,8 @@ public class UserServiceImpl implements UserService {
         String token = JwtTokenUtil.generatorToken(userConvertor.toDTO(registerUser), expireTime);
         // 获取菜单列表
         List<MenuDTO> mapMenus = menuService.getMapMenusByRoleId(registerUser.getRoleId());
+        // 获取权限列表
+        List<String> authorities = menuService.getAuthorityByRoleId(registerUser.getRoleId());
         // 获取角色信息
         Role role = roleRepository.findFirstById(registerUser.getRoleId());
         // 返回token和登录用户信息
@@ -70,6 +72,7 @@ public class UserServiceImpl implements UserService {
         data.put("userInfo", registerUser);
         data.put("token", token);
         data.put("menu", mapMenus);
+        data.put("authority", authorities);
         data.put("role", role);
         return ResultData.success("登录成功！", data);
     }
