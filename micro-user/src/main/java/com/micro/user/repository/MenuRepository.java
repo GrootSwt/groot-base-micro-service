@@ -18,12 +18,19 @@ public interface MenuRepository extends JpaRepository<Menu, Long>, MenuRepositor
     List<Menu> findAllByOrderBySort();
 
     /**
+     * 排序查询所有菜单
+     *
+     * @return 菜单列表
+     */
+    List<Menu> findAllByTypeOrderBySort(String type);
+
+    /**
      * 查询所有id在menuIds中的菜单列表并排序
      *
      * @param menuIds 菜单Id列表
      * @return 菜单列表
      */
-    List<Menu> findAllByIdInAndEnabledOrderBySort(List<Long> menuIds, String enabled);
+    List<Menu> findAllByIdInAndEnabledAndTypeOrderBySort(List<Long> menuIds, String enabled,String type);
 
     /**
      * 根据菜单Id获取菜单

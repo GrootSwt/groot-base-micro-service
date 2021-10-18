@@ -29,8 +29,14 @@ public class MenuServiceImpl implements MenuService {
     private RoleRelationMenuRepository roleRelationMenuRepository;
 
     @Override
-    public List<MenuDTO> getMapMenus() {
-        List<Menu> allMenuList = menuRepository.findAllByOrderBySort();
+    public List<MenuDTO> getMapMenus(boolean isAll) {
+        List<Menu> allMenuList;
+        if (isAll) {
+            allMenuList = menuRepository.findAllByOrderBySort();
+        }else {
+            allMenuList = menuRepository.findAllByTypeOrderBySort("1");
+        }
+
         List<MenuDTO> menuDTOList = menuConvertor.toListDTO(allMenuList);
         MenuDTO menuDTO = new MenuDTO();
         this.menuListToMap(menuDTO, menuDTOList, 0L);
@@ -39,9 +45,10 @@ public class MenuServiceImpl implements MenuService {
 
     /**
      * 根据顶层父Id和菜单列表获取Map结构菜单
-     * @param menuDTO   Map结构菜单
-     * @param menuDTOList   菜单列表
-     * @param pId   父Id
+     *
+     * @param menuDTO     Map结构菜单
+     * @param menuDTOList 菜单列表
+     * @param pId         父Id
      */
     private void menuListToMap(MenuDTO menuDTO, List<MenuDTO> menuDTOList, Long pId) {
         List<MenuDTO> menus = new ArrayList<>();
@@ -56,14 +63,14 @@ public class MenuServiceImpl implements MenuService {
 
     public List<MenuDTO> getMapMenusByRoleId(Long roleId) {
         if (roleId.equals(1L)) {
-            return this.getMapMenus();
+            return this.getMapMenus(false);
         }
         List<RoleRelationMenu> allByRoleId = roleRelationMenuRepository.findAllByRoleId(roleId);
         List<Long> roleIds = new ArrayList<>();
         allByRoleId.forEach(roleRelationMenu -> {
             roleIds.add(roleRelationMenu.getMenuId());
         });
-        List<Menu> menuList = menuRepository.findAllByIdInAndEnabledOrderBySort(roleIds, "1");
+        List<Menu> menuList = menuRepository.findAllByIdInAndEnabledAndTypeOrderBySort(roleIds, "1", "1");
         List<MenuDTO> menuDTOList = menuConvertor.toListDTO(menuList);
         MenuDTO menuDTO = new MenuDTO();
         this.menuListToMap(menuDTO, menuDTOList, 0L);

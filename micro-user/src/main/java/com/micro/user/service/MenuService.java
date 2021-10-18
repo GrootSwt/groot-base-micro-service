@@ -15,7 +15,7 @@ public interface MenuService {
      *
      * @return Map结构菜单
      */
-    List<MenuDTO> getMapMenus();
+    List<MenuDTO> getMapMenus(boolean isALl);
 
     /**
      * 根据角色Id查询Map结构菜单

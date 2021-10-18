@@ -35,7 +35,7 @@ public class MenuController {
     @ApiOperation(value = "获取全部Tree菜单列表")
     @GetMapping(value = "getAllMenu")
     public ResultData getAllMenu() {
-        List<MenuDTO> menuMap = menuService.getMapMenus();
+        List<MenuDTO> menuMap = menuService.getMapMenus(true);
         return ResultData.success("获取全部菜单成功！", menuMap);
     }
 
@@ -89,7 +89,7 @@ public class MenuController {
     public ResultData saveMenu(@RequestBody MenuDTO menuDTO) {
         Menu menu = menuService.saveMenu(menuConvertor.toModel(menuDTO));
         if (menu != null) {
-            List<MenuDTO> menuMap = menuService.getMapMenus();
+            List<MenuDTO> menuMap = menuService.getMapMenus(true);
             return ResultData.success("保存菜单成功！", menuMap);
         }
         return ResultData.failure("保存菜单失败！");
@@ -104,7 +104,7 @@ public class MenuController {
     @DeleteMapping(value = "deleteMenuByIdArr")
     public ResultData deleteMenuByIdArr(Long[] idArr) {
         menuService.deleteMenuByIdArr(idArr);
-        return ResultData.success("删除菜单成功！", menuService.getMapMenus());
+        return ResultData.success("删除菜单成功！", menuService.getMapMenus(true));
     }
 
     /**
