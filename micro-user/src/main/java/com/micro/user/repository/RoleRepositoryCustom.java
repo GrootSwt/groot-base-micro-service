@@ -32,12 +32,6 @@ public interface RoleRepositoryCustom {
      */
     List<Long> findRoleIdsByRoleName(String roleName);
 
-    /**
-     * 获取全部角色名
-     *
-     * @return 全部角色名
-     */
-    List<String> getAllRoleName();
 
     /**
      * 更改角色状态
@@ -45,4 +39,5 @@ public interface RoleRepositoryCustom {
      * @param toModel 角色id和角色enabled
      */
     void changeRoleEnabled(Role toModel);
+
 }

@@ -1,14 +1,13 @@
 package com.micro.user.repository.impl;
 
-import com.micro.base.web.repository.BaseRepository;
 import com.micro.base.web.bean.SearchData;
+import com.micro.base.web.repository.BaseRepository;
 import com.micro.user.model.QRole;
 import com.micro.user.model.Role;
 import com.micro.user.repository.RoleRepositoryCustom;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
@@ -24,9 +23,7 @@ public class RoleRepositoryImpl extends BaseRepository implements RoleRepository
             where.and(role.name.like("%" + searchData.getStringValue("name") + "%"));
         }
         JPAQuery<Role> query = queryFactory().selectFrom(role).where(where);
-        long total = query.fetchCount();
-        List<Role> roleList = querydsl().applyPagination(pageable, query).fetch();
-        return new PageImpl<>(roleList, pageable, total);
+        return this.search(query, pageable);
     }
 
     @Override
@@ -42,16 +39,11 @@ public class RoleRepositoryImpl extends BaseRepository implements RoleRepository
     }
 
     @Override
-    public List<String> getAllRoleName() {
-        QRole role = QRole.role;
-        return queryFactory().select(role.name).from(role).fetch();
-    }
-
-    @Override
     public void changeRoleEnabled(Role toModel) {
         QRole role = QRole.role;
         queryFactory().update(role).set(role.enabled, toModel.getEnabled()).where(role.id.eq(toModel.getId())).execute();
     }
+
 
     @Override
     protected Class<?> getModelClass() {

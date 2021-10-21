@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -26,6 +27,7 @@ public class RoleServiceImpl implements RoleService {
     private RoleRelationMenuRepository roleRelationMenuRepository;
     @Resource
     private UserRepository userRepository;
+
     @Override
     public Role findFirstById(Long roleId) {
         return roleRepository.findFirstById(roleId);
@@ -76,6 +78,7 @@ public class RoleServiceImpl implements RoleService {
             }
         }
         roleRepository.batchDeleteByIds(ids);
+        roleRelationMenuRepository.deleteByRoleIdIn(Arrays.asList(ids));
         return ResultData.success("角色批量删除成功！");
     }
 
