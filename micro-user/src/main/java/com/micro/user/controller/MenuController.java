@@ -119,6 +119,12 @@ public class MenuController {
         return ResultData.success("用户分配需要菜单获取成功！", menuList);
     }
 
+    /**
+     * 根据角色id获取权限
+     *
+     * @param roleId 角色id
+     * @return 权限列表
+     */
     @ApiOperation(value = "根据角色id获取权限")
     @GetMapping(value = "{roleId}/getAuthorities")
     public ResultData getAuthorities(@PathVariable Long roleId) {

@@ -3,6 +3,7 @@ package com.micro.user.service.impl;
 import com.micro.base.common.dto.user.MenuDTO;
 import com.micro.base.web.bean.ResultData;
 import com.micro.base.web.bean.SearchData;
+import com.micro.base.web.exception.BusinessRuntimeException;
 import com.micro.user.convertor.MenuConvertor;
 import com.micro.user.model.Menu;
 import com.micro.user.model.RoleRelationMenu;
@@ -91,6 +92,20 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Menu saveMenu(Menu menu) {
+        Long count = menuRepository.countAllByLocationAndType(menu.getLocation(), menu.getType());
+        if (count > 0) {
+            throw new BusinessRuntimeException("路径已存在，请修改后保存！");
+        }
+        // 重新整理排序
+        List<Menu> menuList = menuRepository.findAllByParentIdOrderBySort(menu.getParentId());
+        for (int i = 0; i < menuList.size(); i++) {
+            if (i + 1 < Integer.parseInt(menu.getSort())) {
+                menuList.get(i).setSort(String.valueOf(i + 1));
+            } else {
+                menuList.get(i).setSort(String.valueOf(i + 2));
+            }
+        }
+        menuRepository.saveAll(menuList);
         return menuRepository.save(menu);
     }
 
@@ -98,6 +113,7 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(rollbackFor = Exception.class)
     public void deleteMenuByIdArr(Long[] idArr) {
         menuRepository.deleteMenuByIdArr(idArr);
+
     }
 
     @Override
