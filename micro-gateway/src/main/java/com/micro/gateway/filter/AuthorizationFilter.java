@@ -1,6 +1,5 @@
 package com.micro.gateway.filter;
 
-import com.alibaba.fastjson.JSON;
 import com.micro.base.common.dto.user.UserDTO;
 import com.micro.base.common.util.JwtTokenUtil;
 import com.micro.gateway.bean.Whitelist;
@@ -20,8 +19,6 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.Resource;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 
@@ -51,56 +48,45 @@ public class AuthorizationFilter implements GlobalFilter, Ordered {
                 return chain.filter(exchange);
             }
         }
+
         // 获取Cookies
         MultiValueMap<String, HttpCookie> cookies = request.getCookies();
         if (cookies.isEmpty()) {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return response.setComplete();
         }
-        // 获取token和登录用户信息
+        // 获取token
         List<HttpCookie> tokenList = cookies.get("token");
-        List<HttpCookie> userInfoList = cookies.get("userInfo");
 
-        if (tokenList == null || userInfoList == null) {
+        // token不存在，提示未授权
+        if (tokenList == null) {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return response.setComplete();
         }
 
-        String userInfoStr2 = userInfoList.get(0).getValue();
-        String userInfoStr = null;
-        try {
-            userInfoStr = URLDecoder.decode(userInfoStr2, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        UserDTO userInfo = JSON.parseObject(userInfoStr, UserDTO.class);
+        // 校验token
         String token = tokenList.get(0).getValue();
-        UserDTO userDTOInfo;
+        UserDTO userInfo;
         try {
-            userDTOInfo = JwtTokenUtil.getUserInfo(token);
+            userInfo = JwtTokenUtil.getUserInfo(token);
         } catch (JwtException e) {
             e.printStackTrace();
             response.setStatusCode(HttpStatus.FORBIDDEN);
             return response.setComplete();
         }
-        // 判断token是否正确
-        assert userInfo != null;
-        if (userDTOInfo.getLoginName().equals(userInfo.getLoginName())) {
 
-            Date expireDate = JwtTokenUtil.getExpireDate(token);
-            Date now = new Date();
-            long times = expireDate.getTime() - now.getTime();
-            //  更新token
-            if (times <= validateTime) {
-                String newToken = JwtTokenUtil.generatorToken(userDTOInfo, expireTime);
-                response.addCookie(ResponseCookie.from("token", newToken).build());
-                exchange.mutate().response(response).build();
-            }
-            return chain.filter(exchange);
-        } else {
-            response.setStatusCode(HttpStatus.FORBIDDEN);
-            return response.setComplete();
+        // 判断是否需要更新token过期时间
+        Date expireDate = JwtTokenUtil.getExpireDate(token);
+        Date now = new Date();
+        long times = expireDate.getTime() - now.getTime();
+        //  更新token
+        if (times <= validateTime) {
+            String newToken = JwtTokenUtil.generatorToken(userInfo, expireTime);
+            response.addCookie(ResponseCookie.from("token", newToken).build());
+            exchange.mutate().response(response).build();
         }
+        return chain.filter(exchange);
+
     }
 
     @Override

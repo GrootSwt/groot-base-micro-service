@@ -5,6 +5,7 @@ import com.micro.base.common.dto.user.UserDTO;
 import com.micro.base.common.util.JwtTokenUtil;
 import com.micro.base.web.bean.ResultData;
 import com.micro.base.web.bean.SearchData;
+import com.micro.base.web.util.LoginUserInfoUtil;
 import com.micro.user.bean.ChangePasswordBean;
 import com.micro.user.convertor.UserConvertor;
 import com.micro.user.model.Role;
@@ -67,6 +68,8 @@ public class UserServiceImpl implements UserService {
         List<String> authorities = menuService.getAuthorityByRoleId(registerUser.getRoleId());
         // 获取角色信息
         Role role = roleRepository.findFirstById(registerUser.getRoleId());
+        // 在session中存放用户信息
+        LoginUserInfoUtil.setOperatorInfo(userConvertor.toDTO(registerUser));
         // 返回token和登录用户信息
         Map<String, Object> data = new HashMap<>(16);
         data.put("userInfo", registerUser);

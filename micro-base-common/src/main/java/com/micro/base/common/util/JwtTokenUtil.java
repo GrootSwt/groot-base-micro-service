@@ -53,6 +53,10 @@ public class JwtTokenUtil {
         return JSON.parseObject(userInfo, UserDTO.class);
     }
 
+    public static void validToken(String token) {
+        Jwts.parser().setSigningKey(getKey()).parse(token);
+    }
+
     /**
      * 获取过期时间
      *
