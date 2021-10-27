@@ -49,6 +49,9 @@ public class LoginUserInfoUtil {
      * @return 操作员信息
      */
     private static OperatorInfo userDTOToOperatorInfo(UserDTO userDTO) {
+        if (userDTO == null) {
+            return null;
+        }
         OperatorInfo operatorInfo = new OperatorInfo();
         BeanUtils.copyProperties(userDTO, operatorInfo);
         return operatorInfo;

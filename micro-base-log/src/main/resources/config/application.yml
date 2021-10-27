@@ -1,6 +1,6 @@
 spring:
   application:
-    name: micro-user
+    name: micro-log
   cloud:
     nacos:
       discovery:
@@ -12,20 +12,11 @@ spring:
       ddl-auto: update
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/micro_system?serverTimezone=GMT
+    url: jdbc:mysql://localhost:3306/micro_log?serverTimezone=GMT
     username: root
     password: 123456
 server:
-  port: 60002
+  port: 60004
 logging:
   level:
     com.alibaba.nacos.client.config.impl: WARN
-micro:
-  # jwt配置
-  jwt:
-    # 密钥
-    key: micro
-    # 过期时间（秒）
-    expireTime: 3600
-    # 校验时间（毫秒）
-    validateTime: 300000
