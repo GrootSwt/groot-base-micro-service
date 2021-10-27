@@ -46,7 +46,7 @@ public class MenuController {
      * @return 菜单列表
      */
     @ApiOperation(value = "根据角色Id获取菜单列表")
-    @GetMapping(value = "getMenuListByRoleId/{roleId}")
+    @GetMapping(value = "{roleId}/getMenuListByRoleId")
     public ResultData getMenuListByRoleId(@PathVariable Long roleId) {
         List<MenuDTO> menuList = menuService.getMapMenusByRoleId(roleId);
         return ResultData.success("根据角色id获取菜单列表成功！", menuList);

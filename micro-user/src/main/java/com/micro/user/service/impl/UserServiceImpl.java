@@ -1,6 +1,5 @@
 package com.micro.user.service.impl;
 
-import com.micro.base.common.dto.user.MenuDTO;
 import com.micro.base.common.dto.user.UserDTO;
 import com.micro.base.common.util.JwtTokenUtil;
 import com.micro.base.web.bean.ResultData;
@@ -12,7 +11,6 @@ import com.micro.user.model.Role;
 import com.micro.user.model.User;
 import com.micro.user.repository.RoleRepository;
 import com.micro.user.repository.UserRepository;
-import com.micro.user.service.MenuService;
 import com.micro.user.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -34,8 +32,6 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Resource
     private UserConvertor userConvertor;
-    @Resource
-    private MenuService menuService;
     @Resource
     private RoleRepository roleRepository;
 
@@ -62,21 +58,12 @@ public class UserServiceImpl implements UserService {
         // 获取token
         registerUser.setPassword(null);
         String token = JwtTokenUtil.generatorToken(userConvertor.toDTO(registerUser), expireTime);
-        // 获取菜单列表
-        List<MenuDTO> mapMenus = menuService.getMapMenusByRoleId(registerUser.getRoleId());
-        // 获取权限列表
-        List<String> authorities = menuService.getAuthorityByRoleId(registerUser.getRoleId());
-        // 获取角色信息
-        Role role = roleRepository.findFirstById(registerUser.getRoleId());
         // 在session中存放用户信息
         LoginUserInfoUtil.setOperatorInfo(userConvertor.toDTO(registerUser));
         // 返回token和登录用户信息
         Map<String, Object> data = new HashMap<>(16);
         data.put("userInfo", registerUser);
         data.put("token", token);
-        data.put("menu", mapMenus);
-        data.put("authority", authorities);
-        data.put("role", role);
         return ResultData.success("登录成功！", data);
     }
 

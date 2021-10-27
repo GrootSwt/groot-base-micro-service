@@ -25,10 +25,10 @@ public class LoginController {
     private UserConvertor userConvertor;
 
     /**
-     * 登录账号密码校验，并获取用户角色、单位、部门、菜单权限和功能权限
+     * 登录账号密码校验，并获取用户信息、token
      *
      * @param userDTO 登录用户DTO
-     * @return 用户角色、单位、部门、菜单权限和功能权限
+     * @return 用户信息、token
      */
     @ApiOperation(value = "登录")
     @PostMapping(value = "login")
