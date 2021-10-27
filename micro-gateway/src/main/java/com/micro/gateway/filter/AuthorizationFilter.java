@@ -79,7 +79,7 @@ public class AuthorizationFilter implements GlobalFilter, Ordered {
         Date expireDate = JwtTokenUtil.getExpireDate(token);
         Date now = new Date();
         long times = expireDate.getTime() - now.getTime();
-        //  更新token
+        //  更新token (距离token过期时间范围小于设定的时间值)
         if (times <= validateTime) {
             String newToken = JwtTokenUtil.generatorToken(userInfo, expireTime);
             response.addCookie(ResponseCookie.from("token", newToken).build());
