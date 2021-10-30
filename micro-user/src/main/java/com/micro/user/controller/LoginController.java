@@ -1,7 +1,7 @@
 package com.micro.user.controller;
 
 import com.micro.base.common.dto.user.UserDTO;
-import com.micro.base.web.bean.ResultData;
+import com.micro.base.common.bean.ResultData;
 import com.micro.user.convertor.UserConvertor;
 import com.micro.user.service.UserService;
 import io.swagger.annotations.Api;

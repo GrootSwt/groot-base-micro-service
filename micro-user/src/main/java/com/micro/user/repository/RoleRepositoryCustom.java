@@ -1,6 +1,6 @@
 package com.micro.user.repository;
 
-import com.micro.base.web.bean.SearchData;
+import com.micro.base.common.bean.SearchData;
 import com.micro.user.model.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

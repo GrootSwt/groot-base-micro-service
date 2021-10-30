@@ -1,7 +1,7 @@
 package com.micro.base.web.util;
 
 import com.micro.base.common.dto.user.UserDTO;
-import com.micro.base.web.bean.OperatorInfo;
+import com.micro.base.common.bean.OperatorInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;

@@ -2,7 +2,7 @@ package com.micro.base.web.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.micro.base.common.dto.log.AuditLogDTO;
-import com.micro.base.web.bean.OperatorInfo;
+import com.micro.base.common.bean.OperatorInfo;
 import com.micro.base.web.util.LoginUserInfoUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;

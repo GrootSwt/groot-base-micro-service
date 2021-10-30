@@ -1,6 +1,6 @@
 package com.micro.base.web.config;
 
-import com.micro.base.web.bean.SearchData;
+import com.micro.base.common.bean.SearchData;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;

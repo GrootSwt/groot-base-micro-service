@@ -1,4 +1,4 @@
-package com.micro.base.web.bean;
+package com.micro.base.common.bean;
 
 import lombok.Getter;
 import lombok.Setter;

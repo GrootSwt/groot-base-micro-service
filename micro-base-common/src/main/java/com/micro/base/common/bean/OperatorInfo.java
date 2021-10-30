@@ -1,11 +1,17 @@
-package com.micro.base.web.bean;
+package com.micro.base.common.bean;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 操作员信息
  */
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class OperatorInfo {
 
     /**

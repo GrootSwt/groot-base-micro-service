@@ -1,6 +1,6 @@
 package com.micro.base.web.config;
 
-import com.micro.base.web.bean.ResultData;
+import com.micro.base.common.bean.ResultData;
 import com.micro.base.web.exception.BusinessRuntimeException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
