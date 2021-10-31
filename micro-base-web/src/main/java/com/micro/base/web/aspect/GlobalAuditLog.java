@@ -3,6 +3,7 @@ package com.micro.base.web.aspect;
 import com.alibaba.fastjson.JSON;
 import com.micro.base.common.dto.log.AuditLogDTO;
 import com.micro.base.common.bean.OperatorInfo;
+import com.micro.base.web.exception.BusinessRuntimeException;
 import com.micro.base.web.util.LoginUserInfoUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -73,7 +74,11 @@ public class GlobalAuditLog {
             AuditLogDTO auditLogDTO = getAuditLogDTO(joinPoint);
             auditLogDTO.setResponseData(JSON.toJSONString(result));
             auditLogDTO.setSuccess(true);
-            restTemplate.postForEntity(ADD_LOG_URL, auditLogDTO, Void.class);
+            try {
+                restTemplate.postForEntity(ADD_LOG_URL, auditLogDTO, Void.class);
+            }catch (Exception err) {
+                throw new BusinessRuntimeException("请开启日志服务!");
+            }
         }
 
     }
@@ -90,7 +95,11 @@ public class GlobalAuditLog {
             AuditLogDTO auditLogDTO = getAuditLogDTO(joinPoint);
             auditLogDTO.setResponseData(JSON.toJSONString(e.getMessage()));
             auditLogDTO.setSuccess(false);
-            restTemplate.postForEntity(ADD_LOG_URL, auditLogDTO, Void.class);
+            try {
+                restTemplate.postForEntity(ADD_LOG_URL, auditLogDTO, Void.class);
+            }catch (Exception err) {
+                throw new BusinessRuntimeException("请开启日志服务!");
+            }
         }
 
     }
