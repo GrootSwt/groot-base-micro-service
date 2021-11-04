@@ -13,7 +13,7 @@ util:
 annotation:
     EnableAuditLog: 
         (1) 在服务的启动类上添加该注解会启动全局日志服务
-        (2) 如果有一个服务使用了该注解，必须启动micro-base-log服务
+        (2) 如果有一个服务使用了该注解，必须启动micro-log服务
     EnableMicroBaseWeb:
         (1) 所有服务上都要使用该注解
         (2) 该注解功能：
@@ -33,7 +33,7 @@ annotation:
     util:
         web相关的工具类
 ```
-### 3、micro-base-log
+### 3、micro-log
     日志服务
 ### 4、micro-gateway
     网关服务

@@ -64,6 +64,11 @@ public interface MenuService {
      */
     List<MenuDTO> getAllMenuForUser();
 
-
+    /**
+     * 根据角色id获取操作权限列表
+     *
+     * @param roleId 角色id
+     * @return 操作权限列表
+     */
     List<String> getAuthorityByRoleId(Long roleId);
 }

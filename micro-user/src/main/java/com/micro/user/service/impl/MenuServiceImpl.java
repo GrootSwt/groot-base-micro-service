@@ -128,7 +128,9 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<String> getAuthorityByRoleId(Long roleId) {
         List<String> authorities = new ArrayList<>();
+        // 如果是超级用户角色
         if (roleId == 1L) {
+            // 查询所有权限
             List<Menu> menuList = menuRepository.findAllByTypeOrderBySort("2");
             for (Menu menu : menuList) {
                 authorities.add(menu.getLocation());

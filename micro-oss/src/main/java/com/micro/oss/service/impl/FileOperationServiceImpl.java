@@ -126,6 +126,7 @@ public class FileOperationServiceImpl implements FileOperationService {
             inputStream.close();
 
             // 文件路径
+            assert fileName != null;
             String saveFileName = getSaveFileName(fileName);
             fileInfo.setFilePath(saveFileName);
 

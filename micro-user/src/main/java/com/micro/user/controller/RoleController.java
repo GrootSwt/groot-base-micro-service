@@ -76,7 +76,7 @@ public class RoleController {
     @ApiOperation(value = "保存角色")
     @PostMapping(value = "saveRole")
     public ResultData saveRole(@RequestBody RoleDTO roleDTO) {
-        return roleService.saveRole(roleConvertor.toModel(roleDTO));
+        return roleService.saveRole(roleConvertor.toModel(roleDTO), roleDTO.getMenuIdArr());
     }
 
     /**

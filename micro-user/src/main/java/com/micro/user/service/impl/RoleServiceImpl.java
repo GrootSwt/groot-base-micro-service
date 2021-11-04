@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,14 +58,30 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public ResultData saveRole(Role role) {
+    public ResultData saveRole(Role role, Long[] menuIdArr) {
         if (role.getId() != null && "0".equals(role.getEnabled())) {
             User user = userRepository.findFirstByRoleId(role.getId());
             if (user != null) {
                 return ResultData.failure("该角色下存在用户，不可禁用！");
             }
         }
-        roleRepository.save(role);
+        // 编辑时先删除角色关联菜单
+        if (role.getId() != null) {
+            roleRelationMenuRepository.deleteByRoleId(role.getId());
+        }
+        // 保存角色
+        Role result = roleRepository.save(role);
+        // 如果菜单id列表不为空，将数据插入角色菜单关联表
+        if (menuIdArr.length > 0) {
+            List<RoleRelationMenu> roleRelationMenus = new ArrayList<>();
+            for (Long menuId : menuIdArr) {
+                RoleRelationMenu roleRelationMenu = new RoleRelationMenu();
+                roleRelationMenu.setRoleId(result.getId());
+                roleRelationMenu.setMenuId(menuId);
+                roleRelationMenus.add(roleRelationMenu);
+            }
+            roleRelationMenuRepository.saveAll(roleRelationMenus);
+        }
         return ResultData.success("保存成功！");
     }
 

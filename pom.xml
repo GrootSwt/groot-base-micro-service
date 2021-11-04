@@ -13,7 +13,7 @@
         <module>micro-gateway</module>
         <module>micro-user</module>
         <module>micro-oss</module>
-        <module>micro-base-log</module>
+        <module>micro-log</module>
     </modules>
     <packaging>pom</packaging>
 

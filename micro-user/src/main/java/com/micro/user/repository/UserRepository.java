@@ -38,5 +38,10 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
      */
     User findFirstById(Long id);
 
+    /**
+     * 根据角色id查询第一个用户
+     * @param roleId    角色id
+     * @return 查找到的第一个用户或者null
+     */
     User findFirstByRoleId(Long roleId);
 }

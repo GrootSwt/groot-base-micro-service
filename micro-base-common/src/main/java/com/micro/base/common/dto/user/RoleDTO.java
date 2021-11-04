@@ -18,4 +18,6 @@ public class RoleDTO implements Serializable {
     private String description;
 
     private String enabled;
+
+    private Long[] menuIdArr;
 }

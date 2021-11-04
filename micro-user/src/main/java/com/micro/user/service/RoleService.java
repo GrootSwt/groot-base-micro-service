@@ -48,7 +48,7 @@ public interface RoleService {
      *
      * @param toModel 角色
      */
-    ResultData saveRole(Role toModel);
+    ResultData saveRole(Role toModel, Long[] menuIdArr);
 
     /**
      * 批量删除角色

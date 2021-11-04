@@ -29,14 +29,6 @@ public class ResultData {
     private Object data;
 
 
-    public ResultData() {
-
-    }
-
-    public ResultData(String status) {
-        this.status = status;
-    }
-
     public ResultData(String status, String message) {
         this.status = status;
         this.message = message;
@@ -48,9 +40,6 @@ public class ResultData {
         this.data = data;
     }
 
-    public static ResultData success() {
-        return new ResultData(ResultData.SUCCESS);
-    }
 
     public static ResultData success(String message) {
         return new ResultData(ResultData.SUCCESS, message);
@@ -60,9 +49,6 @@ public class ResultData {
         return new ResultData(ResultData.SUCCESS, message, data);
     }
 
-    public static ResultData failure() {
-        return new ResultData(ResultData.FAILURE);
-    }
 
     public static ResultData failure(String message) {
         return new ResultData(ResultData.FAILURE, message);

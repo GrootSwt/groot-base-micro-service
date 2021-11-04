@@ -94,6 +94,12 @@ public class UserController {
     }
 
 
+    /**
+     * 更改头像
+     *
+     * @param userDTO 用户DTO
+     * @return 更改后的用户信息
+     */
     @ApiOperation(value = "更改头像")
     @PutMapping(value = "modifyAvatar")
     public ResultData modifyAvatar(@RequestBody UserDTO userDTO) {

@@ -79,7 +79,19 @@ public interface UserService {
      */
     ResultData authorization(User toModel);
 
+    /**
+     * 更改用户信息
+     *
+     * @param toModel 用户信息
+     * @return 更改后的用户信息
+     */
     ResultData modifyUserInfo(User toModel);
 
+    /**
+     * 更改头像
+     *
+     * @param toModel 用户id、头像
+     * @return 更改头像后的用户信息
+     */
     ResultData modifyAvatar(User toModel);
 }
