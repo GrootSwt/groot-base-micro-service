@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartResolver;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 /**
@@ -58,8 +59,11 @@ public class GlobalAuditLog {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         assert requestAttributes != null;
         HttpServletRequest request = requestAttributes.getRequest();
+        HttpServletResponse response = requestAttributes.getResponse();
+        assert response != null;
+        String header = response.getHeader("content-disposition");
         // 如果为文件操作则不审计日志
-        return !multipartResolver.isMultipart(request);
+        return !multipartResolver.isMultipart(request) && header == null;
     }
 
     /**
@@ -70,7 +74,8 @@ public class GlobalAuditLog {
      */
     @AfterReturning(pointcut = "pointCut()", returning = "result")
     public void doAfterReturning(final JoinPoint joinPoint, Object result) {
-        if (isAuditLog()) {
+        boolean flag = isAuditLog();
+        if (flag) {
             AuditLogDTO auditLogDTO = getAuditLogDTO(joinPoint);
             auditLogDTO.setResponseData(JSON.toJSONString(result));
             auditLogDTO.setSuccess(true);

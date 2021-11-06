@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 public class LoginUserInfoUtil {
 
+    private static OperatorInfo operatorInfo;
 
     /**
      * 获取当前操作人员信息
@@ -19,13 +20,18 @@ public class LoginUserInfoUtil {
      * @return 操作人员信息
      */
     public static OperatorInfo getOperatorInfo() {
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-        assert servletRequestAttributes != null;
-        HttpServletRequest request = servletRequestAttributes.getRequest();
-        HttpSession session = request.getSession();
-        UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
-        return userDTOToOperatorInfo(userDTO);
+        if (operatorInfo == null) {
+            operatorInfo = new OperatorInfo();
+            RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+            ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
+            assert servletRequestAttributes != null;
+            HttpServletRequest request = servletRequestAttributes.getRequest();
+            HttpSession session = request.getSession();
+            UserDTO userDTO = (UserDTO) session.getAttribute("userInfo");
+            userDTOToOperatorInfo(userDTO);
+        }
+
+        return operatorInfo;
     }
 
     /**
@@ -40,6 +46,7 @@ public class LoginUserInfoUtil {
         HttpServletRequest request = servletRequestAttributes.getRequest();
         HttpSession session = request.getSession();
         session.setAttribute("userInfo", userDTO);
+        operatorInfo = null;
     }
 
     /**
@@ -48,12 +55,9 @@ public class LoginUserInfoUtil {
      * @param userDTO 登录用户信息
      * @return 操作员信息
      */
-    private static OperatorInfo userDTOToOperatorInfo(UserDTO userDTO) {
-        if (userDTO == null) {
-            return null;
+    private static void userDTOToOperatorInfo(UserDTO userDTO) {
+        if (userDTO != null) {
+            BeanUtils.copyProperties(userDTO, operatorInfo);
         }
-        OperatorInfo operatorInfo = new OperatorInfo();
-        BeanUtils.copyProperties(userDTO, operatorInfo);
-        return operatorInfo;
     }
 }
