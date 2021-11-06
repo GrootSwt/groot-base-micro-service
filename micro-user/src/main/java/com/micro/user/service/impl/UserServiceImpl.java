@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService {
         // 获取token
         registerUser.setPassword(null);
         String token = JwtTokenUtil.generatorToken(userConvertor.toDTO(registerUser), expireTime);
+
         // 在session中存放用户信息
         LoginUserInfoUtil.setOperatorInfo(userConvertor.toDTO(registerUser));
         // 返回token和登录用户信息
