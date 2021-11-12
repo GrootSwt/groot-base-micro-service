@@ -1,13 +1,13 @@
 package com.micro.base.common.bean;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class SearchData {
     private final Map<String, Object> params = new HashMap<>();
 
-    public SearchData() {}
+    public SearchData() {
+    }
 
     public Boolean isEmpty() {
         return this.params.isEmpty();
@@ -101,6 +101,20 @@ public class SearchData {
                 arr[i] = (Long) list.get(i);
             }
             return arr;
+        }
+    }
+
+    public Date getDateValue(String key) {
+        Object o = params.get(key);
+        if (o instanceof Date) {
+            return (Date) o;
+        }
+        String str = String.valueOf(o);
+        SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd yyyy hh:mm:ss z", Locale.ENGLISH);
+        try {
+            return format.parse(str);
+        } catch (Exception e) {
+            throw new RuntimeException("日期格式错误！");
         }
     }
 

@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.micro.base.common.bean.JwtBean;
 import com.micro.base.common.dto.user.UserDTO;
-import io.jsonwebtoken.*;
-import org.joda.time.DateTime;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -35,8 +38,11 @@ public class JwtTokenUtil {
      * @return token
      */
     public static String generatorToken(UserDTO userDTOInfo, Integer expire) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.SECOND, expire);
+        Date expireTime = calendar.getTime();
         return Jwts.builder().claim("userInfo", userDTOInfo)
-                .setExpiration(DateTime.now().plusSeconds(expire).toDate())
+                .setExpiration(expireTime)
                 .signWith(SignatureAlgorithm.HS256, getKey()).compact();
     }
 
