@@ -70,7 +70,6 @@ public class AuthorizationFilter implements GlobalFilter, Ordered {
         try {
             userInfo = JwtTokenUtil.getUserInfo(token);
         } catch (JwtException e) {
-            e.printStackTrace();
             response.setStatusCode(HttpStatus.FORBIDDEN);
             return response.setComplete();
         }
