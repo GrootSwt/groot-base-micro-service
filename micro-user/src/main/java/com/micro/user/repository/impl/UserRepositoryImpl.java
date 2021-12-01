@@ -25,14 +25,14 @@ public class UserRepositoryImpl extends BaseRepository implements UserRepository
         if (searchData.hasKey("roleIds")) {
             where.and(user.roleId.in(searchData.getLongArrayValue("roleIds")));
         }
-        JPAQuery<User> query = queryFactory().selectFrom(user).where(where);
+        JPAQuery<User> query = queryFactory.selectFrom(user).where(where);
         return this.search(query, pageable);
     }
 
     @Override
     public void changeUserEnable(User toModel) {
         QUser user = QUser.user;
-        queryFactory()
+        queryFactory
                 .update(user)
                 .set(user.enabled, toModel.getEnabled())
                 .where(user.id.eq(toModel.getId()))
@@ -42,7 +42,7 @@ public class UserRepositoryImpl extends BaseRepository implements UserRepository
     @Override
     public void changePassword(ChangePasswordBean changePasswordBean) {
         QUser user = QUser.user;
-        queryFactory()
+        queryFactory
                 .update(user)
                 .set(user.password, changePasswordBean.getNewPassword())
                 .where(user.id.eq(changePasswordBean.getId()))

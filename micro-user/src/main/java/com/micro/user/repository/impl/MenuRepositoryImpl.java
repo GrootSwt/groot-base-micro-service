@@ -21,14 +21,14 @@ public class MenuRepositoryImpl extends BaseRepository implements MenuRepository
         if (searchData.hasKey("enabled")) {
             where.and(menu.enabled.eq(searchData.getStringValue("enabled")));
         }
-        JPAQuery<Menu> query = queryFactory().selectFrom(menu).where(where);
+        JPAQuery<Menu> query = queryFactory.selectFrom(menu).where(where);
         return this.search(query, pageable);
     }
 
     @Override
     public void deleteMenuByIdArr(Long[] idArr) {
         QMenu menu = QMenu.menu;
-        queryFactory().delete(menu).where(menu.id.in(idArr)).execute();
+        queryFactory.delete(menu).where(menu.id.in(idArr)).execute();
     }
 
     @Override

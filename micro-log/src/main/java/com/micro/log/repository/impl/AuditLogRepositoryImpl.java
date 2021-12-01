@@ -47,7 +47,7 @@ public class AuditLogRepositoryImpl extends BaseRepository implements AuditLogRe
             Date endDate = calendar.getTime();
             where.and(auditLog.createTime.between(searchData.getDateValue("startDate"), endDate));
         }
-        JPAQuery<AuditLog> query = queryFactory().selectFrom(auditLog).where(where);
+        JPAQuery<AuditLog> query = queryFactory.selectFrom(auditLog).where(where);
         return search(query, pageable, auditLog.createTime.desc());
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.Querydsl;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -25,27 +26,12 @@ public abstract class BaseRepository {
     protected abstract Class<?> getModelClass();
 
     /**
-     * 获取Querydsl
-     *
-     * @return Querydsl
+     * 获取Querydsl和获取JPAQueryFactory
      */
-    protected Querydsl querydsl() {
-        if (querydsl == null) {
-            querydsl = new Querydsl(entityManager, new PathBuilderFactory().create(getModelClass()));
-        }
-        return querydsl;
-    }
-
-    /**
-     * 获取JPAQueryFactory
-     *
-     * @return JPAQueryFactory
-     */
-    protected JPAQueryFactory queryFactory() {
-        if (queryFactory == null) {
-            queryFactory = new JPAQueryFactory(entityManager);
-        }
-        return queryFactory;
+    @PostConstruct
+    protected void init() {
+        querydsl = new Querydsl(entityManager, new PathBuilderFactory().create(getModelClass()));
+        queryFactory = new JPAQueryFactory(entityManager);
     }
 
     /**

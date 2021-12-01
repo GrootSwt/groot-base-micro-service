@@ -13,7 +13,7 @@ public class RoleRelationMenuRepositoryImpl extends BaseRepository implements Ro
     @Override
     public List<Long> getMenuIdsByRoleId(Long roleId) {
         QRoleRelationMenu roleRelationMenu = QRoleRelationMenu.roleRelationMenu;
-        return queryFactory()
+        return queryFactory
                 .select(roleRelationMenu.menuId)
                 .from(roleRelationMenu)
                 .where(roleRelationMenu.roleId.eq(roleId))

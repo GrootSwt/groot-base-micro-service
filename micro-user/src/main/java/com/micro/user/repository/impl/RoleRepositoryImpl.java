@@ -22,26 +22,26 @@ public class RoleRepositoryImpl extends BaseRepository implements RoleRepository
         if (searchData.hasKey("name")) {
             where.and(role.name.like("%" + searchData.getStringValue("name") + "%"));
         }
-        JPAQuery<Role> query = queryFactory().selectFrom(role).where(where);
+        JPAQuery<Role> query = queryFactory.selectFrom(role).where(where);
         return this.search(query, pageable);
     }
 
     @Override
     public void batchDeleteByIds(Long[] ids) {
         QRole role = QRole.role;
-        queryFactory().delete(role).where(role.id.in(ids)).execute();
+        queryFactory.delete(role).where(role.id.in(ids)).execute();
     }
 
     @Override
     public List<Long> findRoleIdsByRoleName(String roleName) {
         QRole role = QRole.role;
-        return queryFactory().select(role.id).from(role).where(role.name.like("%" + roleName + "%")).fetch();
+        return queryFactory.select(role.id).from(role).where(role.name.like("%" + roleName + "%")).fetch();
     }
 
     @Override
     public void changeRoleEnabled(Role toModel) {
         QRole role = QRole.role;
-        queryFactory().update(role).set(role.enabled, toModel.getEnabled()).where(role.id.eq(toModel.getId())).execute();
+        queryFactory.update(role).set(role.enabled, toModel.getEnabled()).where(role.id.eq(toModel.getId())).execute();
     }
 
 
