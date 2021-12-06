@@ -25,6 +25,6 @@ micro:
     # 密钥
     key: micro
     # 过期时间（秒）
-    expireTime: 3600
-    # 校验时间（毫秒）
-    validateTime: 300000
+    expireTime: 360
+    # 校验时间（秒）
+    validateTime: 60

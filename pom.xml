@@ -11,9 +11,10 @@
         <module>micro-base-common</module>
         <module>micro-base-web</module>
         <module>micro-gateway</module>
-        <module>micro-user</module>
+        <module>micro-system</module>
         <module>micro-oss</module>
         <module>micro-log</module>
+        <module>micro-dict</module>
     </modules>
     <packaging>pom</packaging>
 

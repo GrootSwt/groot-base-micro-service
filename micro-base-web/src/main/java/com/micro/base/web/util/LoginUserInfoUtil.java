@@ -2,7 +2,7 @@ package com.micro.base.web.util;
 
 import com.alibaba.fastjson.JSON;
 import com.micro.base.common.bean.OperatorInfo;
-import com.micro.base.common.dto.user.UserDTO;
+import com.micro.base.common.dto.system.UserDTO;
 import com.micro.base.web.exception.BusinessRuntimeException;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;

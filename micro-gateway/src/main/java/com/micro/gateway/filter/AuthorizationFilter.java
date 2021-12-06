@@ -1,6 +1,6 @@
 package com.micro.gateway.filter;
 
-import com.micro.base.common.dto.user.UserDTO;
+import com.micro.base.common.dto.system.UserDTO;
 import com.micro.base.common.util.JwtTokenUtil;
 import com.micro.gateway.bean.Whitelist;
 import io.jsonwebtoken.JwtException;
@@ -79,7 +79,7 @@ public class AuthorizationFilter implements GlobalFilter, Ordered {
         Date now = new Date();
         long times = expireDate.getTime() - now.getTime();
         //  更新token (距离token过期时间范围小于设定的时间值)
-        if (times <= validateTime) {
+        if (times <= validateTime * 1000) {
             String newToken = JwtTokenUtil.generatorToken(userInfo, expireTime);
             response.addCookie(ResponseCookie.from("token", newToken).build());
             exchange.mutate().response(response).build();

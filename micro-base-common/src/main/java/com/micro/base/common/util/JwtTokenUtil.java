@@ -3,7 +3,7 @@ package com.micro.base.common.util;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.micro.base.common.bean.JwtBean;
-import com.micro.base.common.dto.user.UserDTO;
+import com.micro.base.common.dto.system.UserDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
