@@ -26,11 +26,11 @@ public class Dictionary {
     /**
      * 数据字典key
      */
-    private String key;
+    private String dictionaryKey;
     /**
      * 数据字典value
      */
-    private String value;
+    private String dictionaryValue;
     /**
      * 启用状态（0：未启用；1：已启用）
      */
@@ -42,11 +42,11 @@ public class Dictionary {
     /**
      * 数据字典分类id
      */
-    private String categoryId;
+    private Long categoryId;
     /**
      * 父级数据字典id
      */
-    private String parentId;
+    private Long parentId;
     /**
      * 创建时间
      */
