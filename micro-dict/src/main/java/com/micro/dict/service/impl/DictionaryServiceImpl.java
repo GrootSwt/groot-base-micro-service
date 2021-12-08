@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class DictionaryServiceImpl implements DictionaryService {
@@ -40,5 +41,10 @@ public class DictionaryServiceImpl implements DictionaryService {
     @Override
     public void batchDelete(Long[] ids) {
         dictionaryRepository.deleteAllByIdIn(Arrays.asList(ids));
+    }
+
+    @Override
+    public List<Dictionary> conditionSearch(SearchData searchData) {
+        return dictionaryRepository.conditionSearch(searchData);
     }
 }

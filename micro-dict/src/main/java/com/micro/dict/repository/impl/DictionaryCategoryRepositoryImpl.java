@@ -33,8 +33,11 @@ public class DictionaryCategoryRepositoryImpl extends BaseRepository implements 
             Date endDate = calendar.getTime();
             where.and(dictionaryCategory.createTime.in(searchData.getDateValue("startDate"), endDate));
         }
+        if (searchData.hasKey("enabled")){
+            where.and(dictionaryCategory.enabled.eq(searchData.getStringValue("enabled")));
+        }
         JPAQuery<DictionaryCategory> jpaQuery = queryFactory.selectFrom(dictionaryCategory).where(where);
-        return this.search(jpaQuery, pageable, dictionaryCategory.createTime.desc());
+            return this.search(jpaQuery, pageable, dictionaryCategory.createTime.asc());
     }
 
     @Override

@@ -10,6 +10,8 @@ import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public class DictionaryRepositoryImpl extends BaseRepository implements DictionaryRepositoryCustom {
     @Override
     protected Class<?> getModelClass() {
@@ -35,5 +37,15 @@ public class DictionaryRepositoryImpl extends BaseRepository implements Dictiona
                 .set(dictionary.enabled,model.getEnabled())
                 .where(dictionary.id.eq(model.getId()))
                 .execute();
+    }
+
+    @Override
+    public List<Dictionary> conditionSearch(SearchData searchData) {
+        QDictionary dictionary = QDictionary.dictionary;
+        BooleanBuilder where = new BooleanBuilder();
+        if (searchData.hasKey("categoryId")) {
+            where.and(dictionary.categoryId.eq(searchData.getStringValue("categoryId")));
+        }
+        return queryFactory.selectFrom(dictionary).where(where).orderBy(dictionary.createTime.asc()).fetch();
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Api(tags = {"数据字典"})
 @RestController
@@ -24,6 +25,13 @@ public class DictionaryController {
 
     @Resource
     private DictionaryConvertor dictionaryConvertor;
+
+    @ApiOperation(value = "条件查询")
+    @GetMapping(value = "conditionSearch")
+    public ResultData conditionSearch(SearchData searchData) {
+        List<Dictionary> dictionaries = dictionaryService.conditionSearch(searchData);
+        return ResultData.success("条件查询数据字典成功！", dictionaryConvertor.toListDTO(dictionaries));
+    }
 
     @ApiOperation(value = "分页条件查询")
     @GetMapping(value = "pageableSearch")

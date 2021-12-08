@@ -1,7 +1,9 @@
 package com.micro.base.common.bean;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SearchData {
     private final Map<String, Object> params = new HashMap<>();
@@ -106,16 +108,14 @@ public class SearchData {
 
     public Date getDateValue(String key) {
         Object o = params.get(key);
-        if (o instanceof Date) {
-            return (Date) o;
+        long timestamp;
+        if (o instanceof Long) {
+            timestamp = (Long) o;
+        } else {
+            timestamp = Long.parseLong(String.valueOf(o));
         }
-        String str = String.valueOf(o);
-        SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd yyyy hh:mm:ss z", Locale.ENGLISH);
-        try {
-            return format.parse(str);
-        } catch (Exception e) {
-            throw new RuntimeException("日期格式错误！");
-        }
+
+        return new Date(timestamp);
     }
 
 
