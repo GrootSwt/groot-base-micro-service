@@ -37,7 +37,7 @@ public class DictionaryCategoryController {
     public ResultData pageableSearch(SearchData searchData, Pageable pageable) {
         Page<DictionaryCategory> dictionaryCategories = dictionaryCategoryService.pageableSearch(searchData, pageable);
         Page<DictionaryCategoryDTO> dictionaryCategoryDTOS = dictionaryCategoryConvertor.toPageDTO(dictionaryCategories);
-        return ResultData.success("分页条件查询成功！", dictionaryCategoryDTOS);
+        return ResultData.success("数据字典类别分页条件查询成功！", dictionaryCategoryDTOS);
     }
 
     @ApiOperation(value = "更改启用状态")
@@ -50,7 +50,7 @@ public class DictionaryCategoryController {
 
     @ApiOperation(value = "批量删除")
     @DeleteMapping(value = "batchDelete")
-    public ResultData batchDelete(Long[] idArr) {
+    public ResultData batchDelete(@RequestParam Long[] idArr) {
         dictionaryCategoryService.batchDelete(idArr);
         return ResultData.success("删除操作成功！");
     }
