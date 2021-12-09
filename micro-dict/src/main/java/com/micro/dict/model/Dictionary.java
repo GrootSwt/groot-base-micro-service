@@ -20,10 +20,6 @@ public class Dictionary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     /**
-     * 数据字典名称
-     */
-    private String dictionaryName;
-    /**
      * 数据字典key
      */
     private String dictionaryKey;

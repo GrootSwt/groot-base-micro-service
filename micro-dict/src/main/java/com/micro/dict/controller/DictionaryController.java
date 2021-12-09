@@ -57,8 +57,8 @@ public class DictionaryController {
 
     @ApiOperation(value = "批量删除")
     @DeleteMapping(value = "batchDelete")
-    public ResultData batchDelete(Long[] ids) {
-        dictionaryService.batchDelete(ids);
+    public ResultData batchDelete(@RequestParam(value = "idArr") Long[] idArr) {
+        dictionaryService.batchDelete(idArr);
         return ResultData.success("删除成功！");
     }
 }

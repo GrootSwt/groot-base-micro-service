@@ -1,16 +1,16 @@
 package com.micro.system.service.impl;
 
-import com.micro.base.common.dto.system.UserDTO;
-import com.micro.base.common.util.JwtTokenUtil;
 import com.micro.base.common.bean.ResultData;
 import com.micro.base.common.bean.SearchData;
+import com.micro.base.common.dto.system.UserDTO;
+import com.micro.base.common.util.JwtTokenUtil;
 import com.micro.base.web.util.LoginUserInfoUtil;
-import com.micro.system.repository.RoleRepository;
-import com.micro.system.repository.UserRepository;
 import com.micro.system.bean.ChangePasswordBean;
 import com.micro.system.convertor.UserConvertor;
 import com.micro.system.model.Role;
 import com.micro.system.model.User;
+import com.micro.system.repository.RoleRepository;
+import com.micro.system.repository.UserRepository;
 import com.micro.system.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;

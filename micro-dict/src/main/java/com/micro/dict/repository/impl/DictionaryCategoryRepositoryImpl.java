@@ -31,7 +31,8 @@ public class DictionaryCategoryRepositoryImpl extends BaseRepository implements 
             calendar.setTime(searchData.getDateValue("endDate"));
             calendar.add(Calendar.DATE, 1);
             Date endDate = calendar.getTime();
-            where.and(dictionaryCategory.createTime.in(searchData.getDateValue("startDate"), endDate));
+            where.and(dictionaryCategory.createTime.after(searchData.getDateValue("startDate")));
+            where.and(dictionaryCategory.createTime.before(endDate));
         }
         if (searchData.hasKey("enabled")){
             where.and(dictionaryCategory.enabled.eq(searchData.getStringValue("enabled")));

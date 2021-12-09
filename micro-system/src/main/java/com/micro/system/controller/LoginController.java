@@ -1,7 +1,7 @@
 package com.micro.system.controller;
 
-import com.micro.base.common.dto.system.UserDTO;
 import com.micro.base.common.bean.ResultData;
+import com.micro.base.common.dto.system.UserDTO;
 import com.micro.system.convertor.UserConvertor;
 import com.micro.system.service.UserService;
 import io.swagger.annotations.Api;

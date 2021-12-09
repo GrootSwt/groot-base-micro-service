@@ -26,4 +26,4 @@ micro:
     # 密钥
     key: micro
     # 过期时间（秒）
-    expireTime: 360
+    expireTime: 3600

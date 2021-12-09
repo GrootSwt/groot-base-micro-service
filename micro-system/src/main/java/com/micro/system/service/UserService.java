@@ -2,8 +2,8 @@ package com.micro.system.service;
 
 import com.micro.base.common.bean.ResultData;
 import com.micro.base.common.bean.SearchData;
-import com.micro.system.model.User;
 import com.micro.system.bean.ChangePasswordBean;
+import com.micro.system.model.User;
 import org.springframework.data.domain.Pageable;
 
 

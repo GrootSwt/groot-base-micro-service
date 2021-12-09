@@ -81,7 +81,7 @@ public class AuthorizationFilter implements GlobalFilter, Ordered {
         //  更新token (距离token过期时间范围小于设定的时间值)
         if (times <= validateTime * 1000) {
             String newToken = JwtTokenUtil.generatorToken(userInfo, expireTime);
-            response.addCookie(ResponseCookie.from("token", newToken).build());
+            response.addCookie(ResponseCookie.from("token", newToken).path("/").build());
             exchange.mutate().response(response).build();
         }
         return chain.filter(exchange);

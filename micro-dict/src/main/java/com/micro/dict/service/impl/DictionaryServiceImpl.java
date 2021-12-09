@@ -7,6 +7,7 @@ import com.micro.dict.service.DictionaryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
@@ -34,11 +35,13 @@ public class DictionaryServiceImpl implements DictionaryService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void modifyEnabled(Dictionary model) {
         dictionaryRepository.modifyEnabled(model);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void batchDelete(Long[] ids) {
         dictionaryRepository.deleteAllByIdIn(Arrays.asList(ids));
     }
