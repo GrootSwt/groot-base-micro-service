@@ -1,5 +1,7 @@
 ## 一、基础服务
+
 ### 1、micro-base-common
+
 ```text
 bean:
     共用的非web相关的bean
@@ -8,7 +10,9 @@ dto:
 util:
     非web把相关的工具类
 ```
+
 ### 2、micro-base-web
+
 ```text
 annotation:
     EnableAuditLog: 
@@ -30,14 +34,30 @@ annotation:
         自定义异常
     repository:
         抽象Repository
+    result:
+        通用返回类：ResultDTO
+        List返回类：ResultListDTO
+        Page返回类：ResultPageDTO
     util:
         web相关的工具类
 ```
+
 ### 3、micro-log
+
     日志服务
+
 ### 4、micro-gateway
+
     网关服务
+
 ### 5、micro-user
+
     用户、权限服务
+
 ### 6、micro-oss
+
     文件服务
+
+### 7、micro-dict
+    
+    数据字典服务
