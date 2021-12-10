@@ -44,7 +44,7 @@ public class FileOperationController {
      * @param id       文件id
      * @param response 响应
      * @throws BusinessRuntimeException 文件不存在时
-     * @throws IOException       IO异常
+     * @throws IOException              IO异常
      */
     @ApiOperation(value = "文件下载")
     @GetMapping(value = "download/{id}")
@@ -104,5 +104,38 @@ public class FileOperationController {
     public ResultData deleteFileListByIdArr(@RequestParam Long[] idArr) {
         fileOperationService.deleteFileListByIdArr(idArr);
         return ResultData.success("文件删除成功！");
+    }
+
+    /**
+     * 根据filesId获取file列表
+     *
+     * @param filesId 多文件id
+     * @return 文件列表
+     */
+    @ApiOperation(value = "根据filesId获取file列表")
+    @GetMapping(value = "{filesId}/getFileList")
+    public ResultData getFileListByFilesId(@PathVariable String filesId) {
+        List<FileInfo> fileInfoList = fileOperationService.getFileListByFilesId(filesId);
+        return ResultData.success("获取文件列表成功！", fileInfoConvertor.toListDTO(fileInfoList));
+    }
+
+    /**
+     * 根据filesId获取file id列表
+     *
+     * @param filesId 多文件id
+     * @return 文件id列表
+     */
+    @ApiOperation(value = "根据filesId获取file id列表")
+    @GetMapping(value = "{filesId}/getFileIdList")
+    public ResultData getFileIdListByFilesId(@PathVariable String filesId) {
+        List<Long> fileIdList = fileOperationService.getFileIdListByFilesId(filesId);
+        return ResultData.success("获取文件id列表成功！", fileIdList);
+    }
+
+    @ApiOperation(value = "根据filesId删除file")
+    @DeleteMapping(value = "{filesId}/deleteFilesByFilesId")
+    public ResultData deleteFilesByFilesId(@PathVariable String filesId) {
+        fileOperationService.deleteFilesByFilesId(filesId);
+        return ResultData.success("删除成功！");
     }
 }

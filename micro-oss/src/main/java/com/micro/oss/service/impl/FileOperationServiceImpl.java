@@ -38,11 +38,11 @@ public class FileOperationServiceImpl implements FileOperationService {
         } else {
             multipartRequest = (MultipartHttpServletRequest) request;
         }
-
+        String filesId = request.getParameter("filesId");
         List<FileInfo> fileInfoList = new ArrayList<>();
         MultiValueMap<String, MultipartFile> multiFileMap = multipartRequest.getMultiFileMap();
         multiFileMap.forEach((name, fileList) -> {
-            fileList.forEach(file -> fileInfoList.add(saveFile(file)));
+            fileList.forEach(file -> fileInfoList.add(saveFile(file, filesId)));
         });
         return fileInfoRepository.saveAll(fileInfoList);
     }
@@ -112,8 +112,24 @@ public class FileOperationServiceImpl implements FileOperationService {
         fileInfoList.forEach(this::deleteFileAndInfo);
     }
 
-    private FileInfo saveFile(MultipartFile file) {
+    @Override
+    public List<FileInfo> getFileListByFilesId(String filesId) {
+        return fileInfoRepository.findAllByFilesId(filesId);
+    }
+
+    @Override
+    public List<Long> getFileIdListByFilesId(String filesId) {
+        return fileInfoRepository.getFileIdListByFilesId(filesId);
+    }
+
+    @Override
+    public void deleteFilesByFilesId(String filesId) {
+        fileInfoRepository.deleteAllByFilesId(filesId);
+    }
+
+    private FileInfo saveFile(MultipartFile file,String filesId) {
         FileInfo fileInfo = new FileInfo();
+        fileInfo.setFilesId(filesId);
         try {
             // 文件名
             String fileName = file.getOriginalFilename();

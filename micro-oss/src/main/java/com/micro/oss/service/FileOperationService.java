@@ -20,4 +20,10 @@ public interface FileOperationService {
     void deleteFileById(Long id) throws BusinessRuntimeException;
 
     void deleteFileListByIdArr(Long[] idArr);
+
+    List<FileInfo> getFileListByFilesId(String filesId);
+
+    List<Long> getFileIdListByFilesId(String filesId);
+
+    void deleteFilesByFilesId(String filesId);
 }

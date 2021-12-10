@@ -20,4 +20,6 @@ public class FileInfoDTO implements Serializable {
     private String filePath;
 
     private Long fileSize;
+
+    private String filesId;
 }

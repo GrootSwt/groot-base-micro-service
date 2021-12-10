@@ -38,4 +38,9 @@ public class FileInfo implements Serializable {
      * 文件大小
      */
     private Long fileSize;
+
+    /**
+     * 多文件id
+     */
+    private String filesId;
 }
