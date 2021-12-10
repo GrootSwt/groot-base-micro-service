@@ -1,8 +1,8 @@
 package com.micro.base.web.aspect;
 
 import com.alibaba.fastjson.JSON;
-import com.micro.base.common.dto.log.AuditLogDTO;
 import com.micro.base.common.bean.OperatorInfo;
+import com.micro.base.common.dto.log.AuditLogDTO;
 import com.micro.base.web.exception.BusinessRuntimeException;
 import com.micro.base.web.util.LoginUserInfoUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -17,12 +17,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartResolver;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 全局日志处理
@@ -138,8 +143,16 @@ public class GlobalAuditLog {
         auditLogDTO.setFullClassName(fullClassName);
         // 请求参数列表
         Object[] requestParams = joinPoint.getArgs();
+        List<Object> params = new ArrayList<>();
+        for (Object requestParam : requestParams) {
+            if (requestParam instanceof ServletRequest || requestParam instanceof ServletResponse || requestParam instanceof MultipartFile) {
+                continue;
+            }
+            params.add(requestParam);
+        }
+
         // 请求参数列表
-        String requestData = JSON.toJSONString(requestParams);
+        String requestData = JSON.toJSONString(params);
         auditLogDTO.setRequestData(requestData);
 
         // 请求资源定位符

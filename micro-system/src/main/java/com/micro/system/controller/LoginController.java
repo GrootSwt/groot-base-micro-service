@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 登录功能
@@ -32,8 +33,8 @@ public class LoginController {
      */
     @ApiOperation(value = "登录")
     @PostMapping(value = "login")
-    public ResultData login(@RequestBody UserDTO userDTO) {
-        return userService.validateLoginInfoAndGenerateToken(userConvertor.toModel(userDTO));
+    public ResultData login(@RequestBody UserDTO userDTO, HttpServletResponse response) {
+        return userService.validateLoginInfoAndGenerateToken(userConvertor.toModel(userDTO), response);
     }
 
 }

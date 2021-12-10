@@ -10,9 +10,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 
 public class LoginUserInfoUtil {
 
@@ -36,8 +34,8 @@ public class LoginUserInfoUtil {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("userInfo")) {
                     try {
-                        return userDTOToOperatorInfo(URLDecoder.decode(cookie.getValue(),"UTF-8"));
-                    }catch (Exception e) {
+                        return userDTOToOperatorInfo(URLDecoder.decode(cookie.getValue(), "UTF-8"));
+                    } catch (Exception e) {
                         throw new BusinessRuntimeException("数据解析出现异常！");
                     }
                 }
@@ -52,18 +50,7 @@ public class LoginUserInfoUtil {
      * @param userDTO 登录人员信息
      */
     public static void setOperatorInfo(UserDTO userDTO) {
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-        assert servletRequestAttributes != null;
-        HttpServletResponse response = servletRequestAttributes.getResponse();
-        try {
-            Cookie cookie = new Cookie("userInfo", URLEncoder.encode(JSON.toJSONString(userDTO), "UTF-8"));
-            assert response != null;
-            response.addCookie(cookie);
-            operatorInfoThreadLocal.set(userDTOToOperatorInfo(JSON.toJSONString(userDTO)));
-        } catch (Exception e) {
-            throw new BusinessRuntimeException("数据编码出现异常！");
-        }
+        operatorInfoThreadLocal.set(userDTOToOperatorInfo(JSON.toJSONString(userDTO)));
 
     }
 

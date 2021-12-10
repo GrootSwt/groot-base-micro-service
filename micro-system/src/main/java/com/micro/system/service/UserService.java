@@ -6,6 +6,8 @@ import com.micro.system.bean.ChangePasswordBean;
 import com.micro.system.model.User;
 import org.springframework.data.domain.Pageable;
 
+import javax.servlet.http.HttpServletResponse;
+
 
 public interface UserService {
     /**
@@ -31,7 +33,7 @@ public interface UserService {
      * @param user 登录人输入的账号和密码
      * @return 登陆人的相关信息
      */
-    ResultData validateLoginInfoAndGenerateToken(User user);
+    ResultData validateLoginInfoAndGenerateToken(User user, HttpServletResponse response);
 
     /**
      * 分页条件查询用户信息

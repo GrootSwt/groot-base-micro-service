@@ -1,9 +1,11 @@
 package com.micro.system.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.micro.base.common.bean.ResultData;
 import com.micro.base.common.bean.SearchData;
 import com.micro.base.common.dto.system.UserDTO;
 import com.micro.base.common.util.JwtTokenUtil;
+import com.micro.base.web.exception.BusinessRuntimeException;
 import com.micro.base.web.util.LoginUserInfoUtil;
 import com.micro.system.bean.ChangePasswordBean;
 import com.micro.system.convertor.UserConvertor;
@@ -20,6 +22,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 import java.util.*;
 
 @Service
@@ -45,7 +50,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultData validateLoginInfoAndGenerateToken(User user) {
+    public ResultData validateLoginInfoAndGenerateToken(User user, HttpServletResponse response) {
         // 检查登录人是否注册
         User registerUser = userRepository.findFirstByLoginNameAndEnabled(user.getLoginName(), "1");
         if (registerUser == null) {
@@ -65,6 +70,15 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> data = new HashMap<>(16);
         data.put("userInfo", registerUser);
         data.put("token", token);
+        Cookie tokenCookie = new Cookie("token", token);
+        Cookie userInfoCookie;
+        try {
+            userInfoCookie = new Cookie("userInfo", URLEncoder.encode(JSON.toJSONString(registerUser), "UTF-8"));
+        }catch (Exception e) {
+            throw new BusinessRuntimeException("向cookie中添加用户信息失败！");
+        }
+        response.addCookie(tokenCookie);
+        response.addCookie(userInfoCookie);
         return ResultData.success("登录成功！", data);
     }
 
