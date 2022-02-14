@@ -1,7 +1,7 @@
 package com.micro.oss.service.impl;
 
 import cn.hutool.core.io.FileTypeUtil;
-import com.micro.base.web.exception.BusinessRuntimeException;
+import com.groot.base.web.exception.BusinessRuntimeException;
 import com.micro.oss.model.FileInfo;
 import com.micro.oss.repository.FileInfoRepository;
 import com.micro.oss.service.FileOperationService;
@@ -23,7 +23,7 @@ import java.util.*;
 @Service
 public class FileOperationServiceImpl implements FileOperationService {
 
-    @Value(value = "${micro.file.rootPath}")
+    @Value(value = "${groot.file.root-path}")
     private String fileRootPath;
     @Resource
     private MultipartResolver multipartResolver;

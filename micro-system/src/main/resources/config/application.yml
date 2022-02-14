@@ -1,6 +1,14 @@
 spring:
   application:
     name: micro-system
+  redis:
+    host: localhost
+    password: swt620523
+  rabbitmq:
+    host: localhost
+    password: swt620523
+    username: admin
+    port: 5672
   cloud:
     nacos:
       discovery:
@@ -14,16 +22,25 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/micro_system?serverTimezone=UTC
     username: root
-    password: 123456
+    password: swt620523
 server:
   port: 60002
 logging:
   level:
     com.alibaba.nacos.client.config.impl: WARN
-micro:
-  # jwt配置
-  jwt:
-    # 密钥
-    key: micro
-    # 过期时间（秒）
-    expireTime: 3600
+
+groot:
+  # 登录拦截器是否开启
+  login-interceptor: false
+  swagger:
+    base-package: com.micro
+  rabbit-mq:
+    exchange-name: single-blog
+    queue-name: single-blog
+    routing-key: single-blog
+  login:
+    # redis中用户token过期时间（min）
+    expire-time: 30
+  file:
+    # 文件根目录
+    root-path: E://files

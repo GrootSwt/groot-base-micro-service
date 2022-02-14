@@ -1,7 +1,7 @@
 package com.micro.dict.convertor;
 
-import com.micro.base.common.dto.dict.DictionaryDTO;
-import com.micro.base.web.convertor.BaseConvertor;
+import com.groot.base.web.convertor.BaseConvertor;
+import com.micro.dict.dto.DictionaryDTO;
 import com.micro.dict.model.Dictionary;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;

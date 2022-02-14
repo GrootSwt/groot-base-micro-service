@@ -1,6 +1,6 @@
 package com.micro.dict.service;
 
-import com.micro.base.common.bean.SearchData;
+import com.groot.base.common.SearchData;
 import com.micro.dict.model.DictionaryCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

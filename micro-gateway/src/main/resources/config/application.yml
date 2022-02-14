@@ -1,8 +1,11 @@
 server:
-  port: 60001
+  port: 30001
 spring:
   application:
     name: micro-gateway
+  redis:
+    host: localhost
+    password: swt620523
   cloud:
     nacos:
       discovery:
@@ -25,11 +28,5 @@ micro:
   gateway:
     whitelist:
       - /login
-  # jwt配置
-  jwt:
-    # 密钥
-    key: micro
-    # 过期时间（秒）
-    expireTime: 3600
-    # 校验时间（秒）
-    validateTime: 600
+  login:
+    expire-time: 30

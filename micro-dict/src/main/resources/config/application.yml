@@ -1,6 +1,14 @@
 spring:
   application:
     name: micro-dict
+  redis:
+    host: localhost
+    password: swt620523
+  rabbitmq:
+    host: localhost
+    password: swt620523
+    username: admin
+    port: 5672
   cloud:
     nacos:
       discovery:
@@ -14,9 +22,18 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/micro_dict?serverTimezone=UTC
     username: root
-    password: 123456
+    password: swt620523
 server:
-  port: 60005
+  port: 30005
 logging:
   level:
     com.alibaba.nacos.client.config.impl: WARN
+groot:
+  # 登录拦截器是否开启
+  login-interceptor: false
+  swagger:
+    base-package: com.micro
+  rabbit-mq:
+    exchange-name: single-blog
+    queue-name: single-blog
+    routing-key: single-blog

@@ -1,16 +1,13 @@
 package com.micro.gateway.filter;
 
-import com.micro.base.common.dto.system.UserDTO;
-import com.micro.base.common.util.JwtTokenUtil;
 import com.micro.gateway.bean.Whitelist;
-import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpCookie;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
@@ -19,8 +16,8 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 登录校验器
@@ -28,11 +25,11 @@ import java.util.List;
 @Component
 public class AuthorizationFilter implements GlobalFilter, Ordered {
 
-    @Value(value = "${micro.jwt.expireTime}")
-    private Integer expireTime;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
-    @Value(value = "${micro.jwt.validateTime}")
-    private Long validateTime;
+    @Value("${micro.login.expire-time}")
+    private Long expireTime;
 
     @Resource
     private Whitelist whitelist;
@@ -63,29 +60,29 @@ public class AuthorizationFilter implements GlobalFilter, Ordered {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return response.setComplete();
         }
-
         // 校验token
         String token = tokenList.get(0).getValue();
-        UserDTO userInfo;
-        try {
-            userInfo = JwtTokenUtil.getUserInfo(token);
-        } catch (JwtException e) {
-            response.setStatusCode(HttpStatus.FORBIDDEN);
+
+        // 获取accountName
+        List<HttpCookie> accountNameList = cookies.get("accountName");
+        if (accountNameList == null) {
+            response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return response.setComplete();
         }
+        String accountName = accountNameList.get(0).getValue();
 
-        // 判断是否需要更新token过期时间
-        Date expireDate = JwtTokenUtil.getExpireDate(token);
-        Date now = new Date();
-        long times = expireDate.getTime() - now.getTime();
-        //  更新token (距离token过期时间范围小于设定的时间值)
-        if (times <= validateTime * 1000) {
-            String newToken = JwtTokenUtil.generatorToken(userInfo, expireTime);
-            response.addCookie(ResponseCookie.from("token", newToken).path("/").build());
-            exchange.mutate().response(response).build();
+        String redisToken = stringRedisTemplate.opsForValue().get(token);
+        if (redisToken != null) {
+            if (redisToken.equals(accountName)) {
+                Long expire = stringRedisTemplate.getExpire(token, TimeUnit.MINUTES);
+                if (expire != null && expire < 5L) {
+                    stringRedisTemplate.opsForValue().set(token, redisToken, expireTime, TimeUnit.MINUTES);
+                }
+                return chain.filter(exchange);
+            }
         }
-        return chain.filter(exchange);
-
+        response.setStatusCode(HttpStatus.UNAUTHORIZED);
+        return response.setComplete();
     }
 
     @Override

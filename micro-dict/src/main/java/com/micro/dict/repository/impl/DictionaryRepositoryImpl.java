@@ -1,7 +1,8 @@
 package com.micro.dict.repository.impl;
 
-import com.micro.base.common.bean.SearchData;
-import com.micro.base.web.repository.BaseRepository;
+
+import com.groot.base.common.SearchData;
+import com.groot.base.web.repository.BaseRepository;
 import com.micro.dict.model.Dictionary;
 import com.micro.dict.model.QDictionary;
 import com.micro.dict.repository.DictionaryRepositoryCustom;

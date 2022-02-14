@@ -1,6 +1,14 @@
 spring:
   application:
     name: micro-oss
+  redis:
+    host: localhost
+    password: swt620523
+  rabbitmq:
+    host: localhost
+    password: swt620523
+    username: admin
+    port: 5672
   servlet:
     multipart:
       enabled: true
@@ -19,13 +27,20 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/micro_oss?serverTimezone=UTC
     username: root
-    password: 123456
+    password: swt620523
 server:
   port: 60003
 logging:
   level:
     com.alibaba.nacos.client.config.impl: WARN
-
-micro:
+groot:
+  # 登录拦截器是否开启
+  login-interceptor: false
+  swagger:
+    base-package: com.micro
+  rabbit-mq:
+    exchange-name: single-blog
+    queue-name: single-blog
+    routing-key: single-blog
   file:
-    rootPath: E:/upload/files
+    root-path: E:/upload/files

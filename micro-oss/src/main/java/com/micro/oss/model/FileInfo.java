@@ -1,11 +1,9 @@
 package com.micro.oss.model;
 
+import com.groot.base.web.bean.model.BaseModel;
 import lombok.*;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
@@ -17,11 +15,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class FileInfo implements Serializable {
+public class FileInfo extends BaseModel implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     /**
      * 文件名
      */

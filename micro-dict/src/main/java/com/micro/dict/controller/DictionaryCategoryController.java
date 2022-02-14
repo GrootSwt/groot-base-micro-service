@@ -1,9 +1,10 @@
 package com.micro.dict.controller;
 
-import com.micro.base.common.bean.ResultData;
-import com.micro.base.common.bean.SearchData;
-import com.micro.base.common.dto.dict.DictionaryCategoryDTO;
+import com.groot.base.common.SearchData;
+import com.groot.base.web.bean.result.ResultDTO;
+import com.groot.base.web.bean.result.ResultPageDTO;
 import com.micro.dict.convertor.DictionaryCategoryConvertor;
+import com.micro.dict.dto.DictionaryCategoryDTO;
 import com.micro.dict.model.DictionaryCategory;
 import com.micro.dict.service.DictionaryCategoryService;
 import io.swagger.annotations.Api;
@@ -26,32 +27,32 @@ public class DictionaryCategoryController {
 
     @ApiOperation(value = "数据字典类别新增和修改")
     @PostMapping(value = "save")
-    public ResultData save(@RequestBody DictionaryCategoryDTO dto) {
+    public ResultDTO<Void> save(@RequestBody DictionaryCategoryDTO dto) {
         DictionaryCategory model = dictionaryCategoryConvertor.toModel(dto);
         dictionaryCategoryService.save(model);
-        return ResultData.success("数据字典类别保存成功！");
+        return ResultDTO.success("数据字典类别保存成功！");
     }
 
     @ApiOperation(value = "分页条件查询")
     @GetMapping(value = "pageableSearch")
-    public ResultData pageableSearch(SearchData searchData, Pageable pageable) {
+    public ResultPageDTO<DictionaryCategoryDTO> pageableSearch(SearchData searchData, Pageable pageable) {
         Page<DictionaryCategory> dictionaryCategories = dictionaryCategoryService.pageableSearch(searchData, pageable);
         Page<DictionaryCategoryDTO> dictionaryCategoryDTOS = dictionaryCategoryConvertor.toPageDTO(dictionaryCategories);
-        return ResultData.success("数据字典类别分页条件查询成功！", dictionaryCategoryDTOS);
+        return ResultPageDTO.success("数据字典类别分页条件查询成功！", dictionaryCategoryDTOS);
     }
 
     @ApiOperation(value = "更改启用状态")
     @PutMapping(value = "modifyEnabled")
-    public ResultData modifyEnabled(@RequestBody DictionaryCategoryDTO dto) {
+    public ResultDTO<Void>  modifyEnabled(@RequestBody DictionaryCategoryDTO dto) {
         DictionaryCategory model = dictionaryCategoryConvertor.toModel(dto);
         dictionaryCategoryService.modifyEnabled(model);
-        return ResultData.success("数据字典类别更改启用状态成功！");
+        return ResultDTO.success("数据字典类别更改启用状态成功！");
     }
 
     @ApiOperation(value = "批量删除")
     @DeleteMapping(value = "batchDelete")
-    public ResultData batchDelete(@RequestParam Long[] idArr) {
+    public ResultDTO<Void>  batchDelete(@RequestParam Long[] idArr) {
         dictionaryCategoryService.batchDelete(idArr);
-        return ResultData.success("删除操作成功！");
+        return ResultDTO.success("删除操作成功！");
     }
 }

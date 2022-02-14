@@ -1,6 +1,6 @@
 package com.micro.dict.service.impl;
 
-import com.micro.base.common.bean.SearchData;
+import com.groot.base.common.SearchData;
 import com.micro.dict.model.Dictionary;
 import com.micro.dict.repository.DictionaryRepository;
 import com.micro.dict.service.DictionaryService;

@@ -1,7 +1,8 @@
 package com.micro.oss.convertor;
 
-import com.micro.base.web.convertor.BaseConvertor;
-import com.micro.base.common.dto.oss.FileInfoDTO;
+
+import com.groot.base.web.convertor.BaseConvertor;
+import com.micro.oss.dto.FileInfoDTO;
 import com.micro.oss.model.FileInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
