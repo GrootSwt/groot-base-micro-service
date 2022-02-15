@@ -3,10 +3,10 @@ spring:
     name: micro-system
   redis:
     host: localhost
-    password: swt620523
+    password: 123456
   rabbitmq:
     host: localhost
-    password: swt620523
+    password: 123456
     username: admin
     port: 5672
   cloud:
@@ -22,7 +22,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/micro_system?serverTimezone=UTC
     username: root
-    password: swt620523
+    password: 123456
 server:
   port: 60002
 logging:

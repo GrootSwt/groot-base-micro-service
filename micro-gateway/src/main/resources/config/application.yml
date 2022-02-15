@@ -1,11 +1,11 @@
 server:
-  port: 30001
+  port: 60001
 spring:
   application:
     name: micro-gateway
   redis:
     host: localhost
-    password: swt620523
+    password: 123456
   cloud:
     nacos:
       discovery:
