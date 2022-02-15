@@ -50,5 +50,4 @@ public class LoginController {
         userService.logout(token);
         return ResultDTO.success("已退出！");
     }
-
 }
