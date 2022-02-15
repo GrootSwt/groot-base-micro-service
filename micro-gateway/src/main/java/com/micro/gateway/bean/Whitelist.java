@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@ConfigurationProperties(prefix = "micro.gateway")
+@ConfigurationProperties(prefix = "groot.gateway")
 public class Whitelist {
 
     private List<String> whitelist = new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.micro.dict.convertor;
 
+
 import com.groot.base.web.convertor.BaseConvertor;
 import com.micro.dict.dto.DictionaryDTO;
 import com.micro.dict.model.Dictionary;

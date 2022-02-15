@@ -1,5 +1,6 @@
 package com.micro.dict.repository;
 
+
 import com.groot.base.common.SearchData;
 import com.micro.dict.model.DictionaryCategory;
 import org.springframework.data.domain.Page;

@@ -1,5 +1,6 @@
 package com.micro.dict.service;
 
+
 import com.groot.base.common.SearchData;
 import com.micro.dict.model.Dictionary;
 import org.springframework.data.domain.Page;

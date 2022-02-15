@@ -1,5 +1,6 @@
 package com.micro.dict.repository;
 
+
 import com.micro.dict.model.Dictionary;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -14,7 +14,6 @@ import java.util.Date;
 @Entity
 public class Dictionary extends BaseModel {
 
-
     /**
      * 数据字典key
      */

@@ -1,6 +1,5 @@
 package com.micro.dict.controller;
 
-
 import com.groot.base.common.SearchData;
 import com.groot.base.web.bean.result.ResultDTO;
 import com.groot.base.web.bean.result.ResultListDTO;

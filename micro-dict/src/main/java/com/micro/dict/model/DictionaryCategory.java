@@ -1,19 +1,24 @@
 package com.micro.dict.model;
 
-import com.groot.base.web.bean.model.BaseModel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 @Getter
 @Setter
 @ToString
 @Entity
-public class DictionaryCategory extends BaseModel {
+public class DictionaryCategory {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     /**
      * 数据字典分类名称

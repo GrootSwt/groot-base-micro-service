@@ -5,6 +5,7 @@ import com.micro.dict.model.DictionaryCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+
 public interface DictionaryCategoryService {
     void save(DictionaryCategory model);
 

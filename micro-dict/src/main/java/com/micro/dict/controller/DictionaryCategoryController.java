@@ -43,7 +43,7 @@ public class DictionaryCategoryController {
 
     @ApiOperation(value = "更改启用状态")
     @PutMapping(value = "modifyEnabled")
-    public ResultDTO<Void>  modifyEnabled(@RequestBody DictionaryCategoryDTO dto) {
+    public ResultDTO<Void> modifyEnabled(@RequestBody DictionaryCategoryDTO dto) {
         DictionaryCategory model = dictionaryCategoryConvertor.toModel(dto);
         dictionaryCategoryService.modifyEnabled(model);
         return ResultDTO.success("数据字典类别更改启用状态成功！");
@@ -51,7 +51,7 @@ public class DictionaryCategoryController {
 
     @ApiOperation(value = "批量删除")
     @DeleteMapping(value = "batchDelete")
-    public ResultDTO<Void>  batchDelete(@RequestParam Long[] idArr) {
+    public ResultDTO<Void> batchDelete(@RequestParam Long[] idArr) {
         dictionaryCategoryService.batchDelete(idArr);
         return ResultDTO.success("删除操作成功！");
     }

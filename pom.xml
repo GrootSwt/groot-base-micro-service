@@ -12,6 +12,7 @@
         <module>micro-system</module>
         <module>micro-oss</module>
         <module>micro-dict</module>
+        <module>micro-log</module>
     </modules>
     <packaging>pom</packaging>
 

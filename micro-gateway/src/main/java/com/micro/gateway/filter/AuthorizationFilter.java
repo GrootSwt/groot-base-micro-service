@@ -28,7 +28,7 @@ public class AuthorizationFilter implements GlobalFilter, Ordered {
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
-    @Value("${micro.login.expire-time}")
+    @Value("${groot.login.expire-time}")
     private Long expireTime;
 
     @Resource

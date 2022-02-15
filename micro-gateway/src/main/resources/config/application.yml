@@ -1,5 +1,5 @@
 server:
-  port: 60001
+  port: 40101
 spring:
   application:
     name: micro-gateway
@@ -23,7 +23,7 @@ spring:
 logging:
   level:
     com.alibaba.nacos.client.config.impl: WARN
-micro:
+groot:
   # 网关配置
   gateway:
     whitelist:

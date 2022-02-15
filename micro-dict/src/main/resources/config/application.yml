@@ -1,3 +1,5 @@
+server:
+  port: 40104
 spring:
   application:
     name: micro-dict
@@ -23,17 +25,14 @@ spring:
     url: jdbc:mysql://localhost:3306/micro_dict?serverTimezone=UTC
     username: root
     password: 123456
-server:
-  port: 60004
 logging:
   level:
     com.alibaba.nacos.client.config.impl: WARN
 groot:
-  # 登录拦截器是否开启
-  login-interceptor: false
   swagger:
     base-package: com.micro
+  # 日志
   rabbit-mq:
-    exchange-name: single-blog
-    queue-name: single-blog
-    routing-key: single-blog
+    exchange-name: micro-log
+    queue-name: micro-log
+    routing-key: micro-log
